@@ -1,5 +1,5 @@
 # WFT
-Hello, and welcome to **WFT**.
+### Hello, and welcome to **WFT**.
 
 This is the offical recode of my old plugin WFT, witch had some issues. Overall I was not happy with the result, the code was messy, it was all in one file, there was useless and in-efficent code, with a hard api to use, so decided to recode it.
 
@@ -21,3 +21,61 @@ Packets: The old plugin used entitys, putting more load on the server, whereas t
 
 Efficent and pretty code: The code in this plugin is WAY more efficent and clean that the old plugin. The code is also spaced out in multiple files.
 
+## Features
+
+- Refresh timer
+- Tags for various things
+- Lots of useful commands
+- Form or command line options
+- Help subcommand for new people 
+- Powerful fast and efficient code
+- Extensive customizability
+
+## Example
+![Info](https://i.imgur.com/7UZQGWR.png)
+
+## Commands
+
+Master command is ft|wft.master
+
+Subcommand | Permission | Description | Aliases
+---------|----------|----------|---------
+`wft`|`wft.command.use`|The master command| `ft`
+`add`| ~ |Add a new ft| `spawn`, `summon`, `new`, `make`, `create`, `c`, `a`
+`remove`| ~ |Remove a existing ft| `break`, `delete`, `bye`, `d`, `r`, 
+`edit`| ~ |Edit an existiong ft| `e`, `change`
+`tp`| ~ |Teleport to an ft| `teleportto`, `tpto`, `goto`, `teleport`
+`tphere`| ~ |Teleport a ft to you| `teleporthere`, `movehere`, `bringhere`, `tph`, `move`
+`list`| ~ |See a list of the current fts| `see`, `all` 
+`help`| ~ |So you can get some in-game help| `stuck`, `h`, `?`
+
+## Tags
+
+  Tag|Description
+  -|-
+  `#`|New line
+  `&`|Use for color codes (same as `§`)
+  `{NAME}`|Players real name
+  `{REAL_NAME}`|Players real name
+  `{DISPLAY_NAME}`|Players display name (often nick plugins use display name)
+  `{PING}`|Players Current Ping
+  `{MAX_PLAYERS}`|Maximum players that can be on the server
+  `{ONLINE_PLAYERS}`|Currently online player count
+  `{X}`|Players X Position
+  `{Y}`|Players Y Position
+  `{Z}`|Players Z Position
+  `{REAL_TPS}`|Current server tps
+  `{TPS}`|Average server tps
+  `{REAL_LOAD}`|Current server load
+  `{LOAD}`|Average server load
+  `{LEVEL_NAME}`|Players current level name
+  `{LEVEL_FOLDER}`|Players current level folder name
+  `{LEVEL_PLAYERS}`|Players current level player count
+  `{CONNECTION_IP}`|The IP address that the player connected from
+  `{SERVER_IP}`|The servers IP address
+  `{TIME}`|Current server time (Customisable in config)
+  `{DATE}`|Current server date (Customisable in config)
+
+### Create your own
+  Coming soon...
+  --------
