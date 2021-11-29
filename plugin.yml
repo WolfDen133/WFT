@@ -6,4 +6,9 @@ main: WolfDen133\WFT\WFT
 
 version: 1.0.0
 api: 3.25.0
+
+permissions:
+  wft.command.use:
+    description: Allows the use of the WFT command
+    default: op
 ...
