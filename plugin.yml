@@ -1,0 +1,9 @@
+---
+name: WFT
+author: WolfDen133
+
+main: WolfDen133\WFT\WFT
+
+version: 1.0.0
+api: 3.25.0
+...

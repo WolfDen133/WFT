@@ -1,0 +1,15 @@
+# WFT, MADE BY WOLFDEN133
+
+# Timezone for dates and times
+timezone: "UTC"
+
+# Time format for time tag
+# Get help and formatting at https://www.php.net/manual/en/function.date.php
+time-format: "H:i:s"
+
+# Date format for date tag
+# Get help and formatting at https://www.php.net/manual/en/function.date.php
+date-format: "d-m-Y"
+
+# Displays the text's identifier at the bottom of the text to ops if enabled, much like Texter
+display-identifier: true
