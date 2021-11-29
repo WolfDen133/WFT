@@ -80,4 +80,39 @@ Subcommand | Permission | Description | Aliases
 
 ### Create your own
   Coming soon...
+  
+## API
+
+Example:
+
+Import the classes
+```php
+
+use WolfDen133\WFT\WFT;
+use WolfDen133\WFT\Texts\FloatingText;
+
+```
+Creating the text
+```php
+// Creation and regirstration
+$floatingText = new FloatingText(new Position($x, $y, $z, $level), $name, $text);
+WFT::getAPI()->registerText($floatingText);
+
+// Spawning
+WFT::getAPI()::spawnTo($player, $floatingText);
+// or
+WFT::getAPI()::spawnToAll($floatingText);
+```
+
+Changing the ft's text
+```php
+// Changing the text
+$floatingText->setText($text);
+
+// Pushing the update
+WFT::getAPI()::respawnTo($player, $floatingText);
+// or 
+WFT::getAPI()::respawnToAll($floatingText);
+```
+Thats it! The rest is handled by the plugin.
   --------
