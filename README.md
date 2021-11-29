@@ -14,7 +14,10 @@ I have added features, because I felt the plugin needed them, and removed featur
 
 
 More tags: Added many more tags for better, they are also player spasific.
+
 Per-Player texts: Players will now get a spasific text depending on what tag you use.
+
 Packets: The old plugin used entitys, putting more load on the server, whereas this plugin uses packets, therefor creating a more lightweight plugin.
+
 Efficent and pretty code: The code in this plugin is WAY more efficent and clean that the old plugin. The code is also spaced out in multiple files.
 
