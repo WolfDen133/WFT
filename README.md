@@ -1,5 +1,5 @@
 # WFT
-### Hello, and welcome to **WFT**.
+### Hello, and welcome to **WFT**. ![](logo.png)
 
 This is the offical recode of my old plugin WFT, witch had some issues. Overall I was not happy with the result, the code was messy, it was all in one file, there was useless and in-efficent code, with a hard api to use, so decided to recode it.
 
