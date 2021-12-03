@@ -12,14 +12,14 @@ I have added features, because I felt the plugin needed them, and removed featur
 ## Features added
 
 - Optional display identifier
-- More Tags
+- More Tags (With player made tags)
 - Per-Player Texts
 - Packet Texts over Entity
 - More efficient and pretty code
 
 Display identifier: You can now turn on or off the option to see the texts unique identifier (Much like Texter, but optional)
 
-More tags: Added many more tags for better, they are also player specific.
+More tags: Added many more tags for better, they are also player specific (see the tags section on how to make your own tags).
 
 Per-Player texts: Players will now get a specific text depending on what tag you use.
 
