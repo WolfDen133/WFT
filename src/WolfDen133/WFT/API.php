@@ -2,8 +2,8 @@
 
 namespace WolfDen133\WFT;
 
-use pocketmine\level\Level;
-use pocketmine\Player;
+use pocketmine\world\World;
+use pocketmine\player\Player;
 use pocketmine\utils\Config;
 use WolfDen133\WFT\Texts\FloatingText;
 
@@ -30,7 +30,7 @@ class API {
 
         $config->set("name", $floatingText->getName());
         $config->set("lines", explode("#", $floatingText->getText()));
-        $config->set("level", $floatingText->getPosition()->getLevel()->getName());
+        $config->set("world", $floatingText->getPosition()->getWorld()->getDisplayName());
         $config->set("x", $floatingText->getPosition()->getX());
         $config->set("y", $floatingText->getPosition()->getY());
         $config->set("z", $floatingText->getPosition()->getZ());
@@ -47,13 +47,13 @@ class API {
         unset($this->texts[$floatingText->getName()]);
     }
 
-    public function spawnHandle (Player $player, Level $destination = null) : void
+    public function spawnHandle (Player $player, World $destination = null) : void
     {
-        if (is_null($destination)) $destination = $player->getLevel();
+        if (is_null($destination)) $destination = $player->getWorld();
 
         foreach ($this->texts as $text) {
             self::closeTo($player, $text);
-            if ($destination->getName() !== $text->getPosition()->getLevel()->getName()) return;
+            if ($destination->getDisplayName() !== $text->getPosition()->getWorld()->getDisplayName()) return;
 
             self::spawnTo($player, $text);
         }

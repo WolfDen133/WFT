@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace WolfDen133\WFT;
 
-use pocketmine\level\Position;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
+use pocketmine\world\Position;
 use RecursiveDirectoryIterator;
 use WolfDen133\WFT\Command\WFTCommand;
 use WolfDen133\WFT\Task\UpdateTask;
@@ -19,13 +19,12 @@ class WFT extends PluginBase{
 
     public static API $api;
 
-
-    public function onLoad() : void
+    protected function onLoad() : void
     {
         $this->saveDefaultConfig();
     }
 
-    public function onEnable() : void
+    protected function onEnable() : void
     {
         self::$instance = $this;
 
@@ -38,7 +37,7 @@ class WFT extends PluginBase{
         self::$api = new API();
 
         $this->getServer()->getPluginManager()->registerEvents(new EventListener(), $this);
-        $this->getServer()->getCommandMap()->register("WFT", new WFTCommand("wft", $this));
+        $this->getServer()->getCommandMap()->register("WFT", new WFTCommand("wft"));
 
         $this->getScheduler()->scheduleRepeatingTask(new UpdateTask(), 1);
 
@@ -54,13 +53,13 @@ class WFT extends PluginBase{
 
             $config = new Config($this->getDataFolder() . "texts/" . $file->getFilename(), Config::JSON);
 
-            $this->levelCheck($config->get("level"));
+            $this->levelCheck($config->get("world"));
 
             $position = new Position(
                 $config->get("x"),
                 $config->get("y"),
                 $config->get("z"),
-                $this->getServer()->getLevelByName($config->get("level"))
+                $this->getServer()->getWorldManager()->getWorldByName((string)$config->get("world"))
             );
 
             $text = new FloatingText($position, $config->get("name"), implode("#", $config->get("lines")));
@@ -70,7 +69,7 @@ class WFT extends PluginBase{
 
     public function levelCheck (string $levelName) : void
     {
-        if ($this->getServer()->isLevelLoaded($levelName)) $this->getServer()->loadLevel($levelName);
+        if ($this->getServer()->getWorldManager()->isWorldLoaded($levelName)) $this->getServer()->getWorldManager()->loadWorld($levelName);
     }
 
     public static function getAPI () : API

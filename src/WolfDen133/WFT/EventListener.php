@@ -2,11 +2,11 @@
 
 namespace WolfDen133\WFT;
 
-use pocketmine\event\entity\EntityLevelChangeEvent;
+use pocketmine\event\entity\EntityTeleportEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerQuitEvent;
-use pocketmine\Player;
+use pocketmine\player\Player;
 
 class EventListener implements Listener
 {
@@ -21,13 +21,14 @@ class EventListener implements Listener
         foreach (WFT::getAPI()->getTexts() as $text) WFT::getAPI()::closeTo($event->getPlayer(), $text);
     }
 
-    public function onPlayerLevelChangeEvent (EntityLevelChangeEvent $event) : void
+    public function onPlayerLevelChangeEvent (EntityTeleportEvent $event) : void
     {
+        if ($event->getFrom()->getWorld()->getDisplayName() == $event->getTo()->getWorld()->getDisplayName()) return;
         if (!($event->getEntity() instanceof Player)) return;
 
         /** @var Player $player */
         $player = $event->getEntity();
 
-        WFT::getAPI()->spawnHandle($player, $event->getTarget());
+        WFT::getAPI()->spawnHandle($player, $event->getTo()->getWorld());
     }
 }

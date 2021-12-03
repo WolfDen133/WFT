@@ -2,7 +2,7 @@
 
 namespace WolfDen133\WFT\Utils;
 
-use pocketmine\Player;
+use pocketmine\player\Player;
 use pocketmine\utils\TextFormat;
 use WolfDen133\WFT\WFT;
 
@@ -17,20 +17,20 @@ class Utils {
             "{NAME}" => $player->getName(),
             "{REAL_NAME}" => $player->getName(),
             "{DISPLAY_NAME}" => $player->getDisplayName(),
-            "{PING}" => $player->getPing(),
+            "{PING}" => $player->getNetworkSession()->getPing(),
             "{ONLINE_PLAYERS}" => count($self->getServer()->getOnlinePlayers()),
             "{MAX_PLAYERS}" => $self->getServer()->getMaxPlayers(),
-            "{X}" => (int)$player->getX(),
-            "{Y}" => (int)$player->getY(),
-            "{Z}" => (int)$player->getZ(),
+            "{X}" => (int)$player->getPosition()->getX(),
+            "{Y}" => (int)$player->getPosition()->getY(),
+            "{Z}" => (int)$player->getPosition()->getZ(),
             "{REAL_TPS}" => $self->getServer()->getTicksPerSecond(),
             "{TPS}" => $self->getServer()->getTicksPerSecondAverage(),
             "{REAL_LOAD}" => $self->getServer()->getTickUsage(),
             "{LOAD}" => $self->getServer()->getTickUsageAverage(),
-            "{LEVEL_NAME}" => $player->getLevel()->getName(),
-            "{LEVEL_FOLDER_NAME}" => $player->getLevel()->getFolderName(),
-            "{LEVEL_PLAYERS}" => count($player->getLevel()->getPlayers()),
-            "{CONNECTION_IP}" => $player->getAddress(),
+            "{LEVEL_NAME}" => $player->getWorld()->getDisplayName(),
+            "{LEVEL_FOLDER_NAME}" => $player->getWorld()->getFolderName(),
+            "{LEVEL_PLAYERS}" => count($player->getWorld()->getPlayers()),
+            "{CONNECTION_IP}" => $player->getNetworkSession()->getIp(),
             "{SERVER_IP}" => $self->getServer()->getIP(),
             "{TIME}" => date($self->getConfig()->get("time-format")),
             "{DATE}" => date($self->getConfig()->get("date-format"))

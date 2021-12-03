@@ -2,10 +2,11 @@
 namespace WolfDen133\WFT\Texts;
 
 use pocketmine\entity\Entity;
-use pocketmine\level\Position;
-use pocketmine\Player;
+use pocketmine\permission\DefaultPermissions;
+use pocketmine\world\Position;
+use pocketmine\player\Player;
 use pocketmine\utils\TextFormat;
-use pocketmine\utils\UUID;
+use Ramsey\Uuid\Uuid as UUID;
 use WolfDen133\WFT\WFT;
 
 class FloatingText
@@ -26,6 +27,7 @@ class FloatingText
         $this->name = $name;
 
         $this->registerSubTexts();
+
     }
 
     public function registerSubTexts () : void
@@ -40,13 +42,13 @@ class FloatingText
         $this->subtexts = [];
 
         foreach ($lines as $line) {
-            $subText = new SubText($line, new Position($this->getPosition()->getX(), $y, $this->getPosition()->getZ(), $this->getPosition()->getLevel()), UUID::fromRandom()->toString(), Entity::$entityCount++);
+            $subText = new SubText($line, new Position($this->getPosition()->getX(), $y, $this->getPosition()->getZ(), $this->getPosition()->getWorld()), UUID::uuid4(), Entity::nextRuntimeId());
 
             $this->subtexts[] = $subText;
             $y = $y - 0.3;
         }
 
-        $this->identifier = new SubText(TextFormat::DARK_GRAY . "[" . $this->getName() . "]", new Position($this->position->getX(), $y, $this->position->getZ(), $this->position->getLevel()), UUID::fromRandom()->toString(), Entity::$entityCount++);
+        $this->identifier = new SubText(TextFormat::DARK_GRAY . "[" . $this->getName() . "]", new Position($this->position->getX(), $y, $this->position->getZ(), $this->position->getWorld()), UUID::uuid4(), Entity::nextRuntimeId());
     }
 
     /**
@@ -102,7 +104,7 @@ class FloatingText
         }
 
         if (WFT::$display_identifier) {
-            if ($player->isOp()) $this->identifier->spawnTo($player);
+            if ($player->hasPermission(DefaultPermissions::ROOT_OPERATOR)) $this->identifier->spawnTo($player);
         }
     }
 
@@ -122,7 +124,7 @@ class FloatingText
         $this->registerSubTexts();
 
         if (WFT::$display_identifier) {
-            if ($player->isOp()) $this->identifier->spawnTo($player);
+            if ($player->hasPermission(DefaultPermissions::ROOT_OPERATOR)) $this->identifier->spawnTo($player);
         }
 
         $this->spawnTo($player);

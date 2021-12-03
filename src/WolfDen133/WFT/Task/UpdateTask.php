@@ -7,7 +7,7 @@ use WolfDen133\WFT\WFT;
 
 class UpdateTask extends Task
 {
-    public function onRun(int $currentTick)
+    public function onRun () : void
     {
         foreach (WFT::getAPI()->getTexts() as $text) {
             foreach (WFT::getInstance()->getServer()->getOnlinePlayers() as $player) {

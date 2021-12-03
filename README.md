@@ -1,11 +1,13 @@
-# WFT
+# WFT - 1.1.0
 ### Hello, and welcome to **WFT**. 
 
 ![](logo.png)
 
-This is the offical recode of my old plugin WFT, witch had some issues. Overall I was not happy with the result, the code was messy, it was all in one file, there was useless and in-efficent code, with a hard api to use, so decided to recode it.
+### NOW IN API 4.0
 
-I have added features, because I felt the plugin needed them, and removed features, as some of the features where not needed.
+This is the official recode of my old plugin WFT, witch had some issues. Overall I was not happy with the result, the code was messy, it was all in one file, there was useless and in-efficient code, with a hard api to use, so decided to recode it.
+
+I have added features, because I felt the plugin needed them, and removed features, as some features where not needed.
 
 ## Features added
 
@@ -13,17 +15,17 @@ I have added features, because I felt the plugin needed them, and removed featur
 - More Tags
 - Per-Player Texts
 - Packet Texts over Entity
-- More efficent and pretty code
+- More efficient and pretty code
 
-Display identifier: You can now turn on or off the option to see the texts unique identifer (Much like texter, but optional)
+Display identifier: You can now turn on or off the option to see the texts unique identifier (Much like Texter, but optional)
 
-More tags: Added many more tags for better, they are also player spasific.
+More tags: Added many more tags for better, they are also player specific.
 
-Per-Player texts: Players will now get a spasific text depending on what tag you use.
+Per-Player texts: Players will now get a specific text depending on what tag you use.
 
-Packets: The old plugin used entitys, putting more load on the server, whereas this plugin uses packets, therefor creating a more lightweight plugin.
+Packets: The old plugin used entities, putting more load on the server, whereas this plugin uses packets, therefore creating a more lightweight plugin.
 
-Efficent and pretty code: The code in this plugin is WAY more efficent and clean that the old plugin. The code is also spaced out in multiple files.
+Efficient and pretty code: The code in this plugin is WAY more efficient and clean that the old plugin. The code is also spaced out in multiple files.
 
 ## Features
 
@@ -33,7 +35,7 @@ Efficent and pretty code: The code in this plugin is WAY more efficent and clean
 - Form or command line options
 - Help subcommand for new people 
 - Powerful fast and efficient code
-- Extensive customizability
+- Extensive customizable
 
 ## Example
 ![Info](https://i.imgur.com/7UZQGWR.png)
@@ -47,7 +49,7 @@ Subcommand | Permission | Description | Aliases
 `wft`|`wft.command.use`|The master command| `ft`
 `add`| ~ |Add a new ft| `spawn`, `summon`, `new`, `make`, `create`, `c`, `a`
 `remove`| ~ |Remove a existing ft| `break`, `delete`, `bye`, `d`, `r`, 
-`edit`| ~ |Edit an existiong ft| `e`, `change`
+`edit`| ~ |Edit an existing ft| `e`, `change`
 `tp`| ~ |Teleport to an ft| `teleportto`, `tpto`, `goto`, `teleport`
 `tphere`| ~ |Teleport a ft to you| `teleporthere`, `movehere`, `bringhere`, `tph`, `move`
 `list`| ~ |See a list of the current fts| `see`, `all` 
@@ -96,7 +98,7 @@ use WolfDen133\WFT\Texts\FloatingText;
 ```
 Creating the text
 ```php
-// Creation and regirstration
+// Creation and registration
 $floatingText = new FloatingText(new Position($x, $y, $z, $level), $name, $text);
 WFT::getAPI()->registerText($floatingText);
 
@@ -116,5 +118,5 @@ WFT::getAPI()::respawnTo($player, $floatingText);
 // or 
 WFT::getAPI()::respawnToAll($floatingText);
 ```
-Thats it! The rest is handled by the plugin.
-  --------
+
+That's it, the rest is handled by the plugin

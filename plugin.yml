@@ -4,11 +4,12 @@ author: WolfDen133
 
 main: WolfDen133\WFT\WFT
 
-version: 1.0.0
-api: 3.25.0
+version: 1.1.0
+api: 4.0.0
 
 permissions:
   wft.command.use:
-    description: Allows the use of the WFT command
     default: op
+    description: Allows the use of the wft command
+
 ...

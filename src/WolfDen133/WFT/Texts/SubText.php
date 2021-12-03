@@ -2,22 +2,29 @@
 
 namespace WolfDen133\WFT\Texts;
 
+use pocketmine\network\mcpe\protocol\AddActorPacket;
+use pocketmine\network\mcpe\protocol\AdventureSettingsPacket;
 use pocketmine\network\mcpe\protocol\RemoveActorPacket;
+use pocketmine\network\mcpe\protocol\RemoveEntityPacket;
 use pocketmine\network\mcpe\protocol\SetActorDataPacket;
-use pocketmine\utils\UUID;
-use pocketmine\block\BlockIds;
-use pocketmine\entity\Entity;
+use pocketmine\network\mcpe\protocol\types\DeviceOS;
+use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataFlags;
+use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataProperties;
+use pocketmine\network\mcpe\protocol\types\entity\FloatMetadataProperty;
+use pocketmine\network\mcpe\protocol\types\entity\LongMetadataProperty;
+use pocketmine\network\mcpe\protocol\types\entity\StringMetadataProperty;
+use pocketmine\network\mcpe\protocol\types\inventory\ItemStack;
+use Ramsey\Uuid\Uuid as UUID;
 use pocketmine\entity\Skin;
-use pocketmine\item\Item;
-use pocketmine\level\Position;
+use pocketmine\world\Position;
 use pocketmine\network\mcpe\protocol\AddPlayerPacket;
 use pocketmine\network\mcpe\protocol\DataPacket;
 use pocketmine\network\mcpe\protocol\PlayerListPacket;
 use pocketmine\network\mcpe\protocol\types\inventory\ItemStackWrapper;
 use pocketmine\network\mcpe\protocol\types\PlayerListEntry;
-use pocketmine\network\mcpe\protocol\types\SkinAdapterSingleton;
-use pocketmine\Player;
+use pocketmine\network\mcpe\convert\SkinAdapterSingleton;
 use WolfDen133\WFT\Utils\Utils;
+use pocketmine\player\Player;
 
 class SubText
 {
@@ -43,14 +50,13 @@ class SubText
     public function updateTextTo (Player $player) : void
     {
         $pk = new SetActorDataPacket();
-        $pk->entityRuntimeId = $this->runtime;
+        $pk->actorRuntimeId = $this->runtime;
+        $pk->tick = 0;
         $pk->metadata = [
-            Entity::DATA_NAMETAG => [
-                Entity::DATA_NAMETAG, Utils::getFormattedText($this->text, $player)
-            ]
+            EntityMetadataProperties::NAMETAG => new StringMetadataProperty(Utils::getFormattedText($this->text, $player))
         ];
 
-        $player->sendDataPacket($pk);
+        $player->getNetworkSession()->sendDataPacket($pk);
     }
 
     public function spawnTo (Player $player) : void
@@ -62,7 +68,7 @@ class SubText
         $pk->type = PlayerListPacket::TYPE_ADD;
         $pk->entries = [
             PlayerListEntry::createAdditionEntry(
-                UUID::fromData($this->uuid),
+                UUID::fromString($this->uuid),
                 $this->runtime,
                 "",
                 SkinAdapterSingleton::get()->toSkinData(new Skin(
@@ -73,37 +79,45 @@ class SubText
         ];
         $pks[] = $pk;
 
-        $pk = new AddPlayerPacket();
-        $pk->item = ItemStackWrapper::legacy(Item::get(BlockIds::AIR));
-        $pk->uuid = UUID::fromString($this->uuid);
-        $pk->entityRuntimeId = $this->runtime;
-        $pk->username = Utils::getFormattedText($this->text, $player);
-        $pk->position = $this->position->asVector3();
-        $pk->metadata = [
-            Entity::DATA_FLAGS => [
-                Entity::DATA_TYPE_LONG, 1 << Entity::DATA_FLAG_IMMOBILE
-            ],
-            Entity::DATA_SCALE => [
-                Entity::DATA_TYPE_FLOAT, 0
-            ]
+        $metadata = [
+            EntityMetadataProperties::FLAGS => new LongMetadataProperty(1 << EntityMetadataFlags::IMMOBILE),
+            EntityMetadataProperties::SCALE => new FloatMetadataProperty(0)
         ];
+
+        $pk = AddPlayerPacket::create(
+            UUID::fromString($this->uuid),
+            $this->text,
+            $this->runtime,
+            $this->runtime,
+            "",
+            $this->position->asVector3(),
+            null,
+            0,
+            0,
+            0,
+            ItemStackWrapper::legacy(ItemStack::null()),
+            $metadata,
+            AdventureSettingsPacket::create(0, 0, 0, 0, 0, $this->runtime),
+            [],
+            "",
+            DeviceOS::UNKNOWN
+        );
         $pks[] = $pk;
 
         $pk = new PlayerListPacket();
         $pk->type = PlayerListPacket::TYPE_REMOVE;
-        $pk->entries = [PlayerListEntry::createRemovalEntry(UUID::fromData($this->uuid))];
-
+        $pk->entries = [PlayerListEntry::createRemovalEntry(UUID::fromString($this->uuid))];
         $pks[] = $pk;
 
-        foreach ($pks as $pk) $player->sendDataPacket($pk);
+        foreach ($pks as $pk) $player->getNetworkSession()->sendDataPacket($pk);
 
     }
 
     public function closeTo (Player $player) : void
     {
         $pk = new RemoveActorPacket();
-        $pk->entityUniqueId = $this->runtime;
+        $pk->actorUniqueId = $this->runtime;
 
-        $player->sendDataPacket($pk);
+        $player->getNetworkSession()->sendDataPacket($pk);
     }
 }

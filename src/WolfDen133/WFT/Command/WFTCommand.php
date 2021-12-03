@@ -6,10 +6,11 @@ use jojoe77777\FormAPI\CustomForm;
 use jojoe77777\FormAPI\SimpleForm;
 
 use pocketmine\command\CommandSender;
+use pocketmine\command\defaults\PluginsCommand;
 use pocketmine\command\PluginCommand;
 
-use pocketmine\level\Position;
-use pocketmine\Player;
+use pocketmine\world\Position;
+use pocketmine\player\Player;
 
 use pocketmine\plugin\Plugin;
 use pocketmine\utils\TextFormat;
@@ -17,16 +18,16 @@ use pocketmine\utils\TextFormat;
 use WolfDen133\WFT\WFT;
 use WolfDen133\WFT\Texts\FloatingText;
 
-class WFTCommand extends PluginCommand
+class WFTCommand extends PluginsCommand
 {
     public const MODE_EDIT = 0;
     public const MODE_TP = 1;
     public const MODE_TPHERE = 2;
     public const MODE_REMOVE = 3;
 
-    public function __construct(string $name, Plugin $owner)
+    public function __construct(string $name)
     {
-        parent::__construct($name, $owner);
+        parent::__construct($name);
 
         $this->setPermission("wft.command.use");
         $this->setPermissionMessage(TextFormat::RED . "Unknown command. Try /help for a list of commands");
@@ -61,7 +62,7 @@ class WFTCommand extends PluginCommand
 
                         $sender->sendMessage("==============================\n" .
                         " Name: " . $text->getName() . "\n" .
-                        " Level: " . $text->getPosition()->getLevel()->getName() . "\n" .
+                        " Level: " . $text->getPosition()->getWorld()->getDisplayName() . "\n" .
                         " Position: " . $text->getPosition()->getX() . ", " . $text->getPosition()->getY() . ", " . $text->getPosition()->getZ() . "\n" .
                         " Lines: " . "\n(\n    " . implode("\n    ", explode("#", $text->getText())) . "\n)\n" .
                         "==============================\n");
@@ -155,7 +156,7 @@ class WFTCommand extends PluginCommand
                 case "goto":
                 case "teleport":
 
-                    WFT::getInstance()->levelCheck($text->getPosition()->getLevel()->getName());
+                    WFT::getInstance()->levelCheck($text->getPosition()->getWorld()->getDisplayName());
                     $sender->teleport($text->getPosition());
 
                     break;
@@ -166,7 +167,7 @@ class WFTCommand extends PluginCommand
                 case "tph":
                 case "move":
 
-                    $text->setPosition(new Position($sender->getX(), $sender->getY() + 1.8, $sender->getZ(), $sender->getLevel()));
+                    $text->setPosition(new Position($sender->getPosition()->getY(), $sender->getPosition()->getY() + 1.8, $sender->getPosition()->getZ(), $sender->getWorld()));
                     WFT::getAPI()::respawnToAll($text);
                     WFT::getAPI()->generateConfig($text);
 
@@ -193,7 +194,7 @@ class WFTCommand extends PluginCommand
                         return;
                     }
 
-                    $floatingText = new FloatingText(new Position($sender->getX(), $sender->getY() + 1.8, $sender->getZ(), $sender->getLevel()), $args[1], implode(" ", array_splice($args, 2)));
+                    $floatingText = new FloatingText(new Position($sender->getPosition()->getY(), $sender->getPosition()->getY() + 1.8, $sender->getPosition()->getZ(), $sender->getWorld()), $args[1], implode(" ", array_splice($args, 2)));
 
                     $api->registerText($floatingText);
                     $api->generateConfig($floatingText);
@@ -231,7 +232,7 @@ class WFTCommand extends PluginCommand
                 return;
             }
 
-            $floatingText = new FloatingText(new Position($player->getX(), $player->getY() + 1.8, $player->getZ(), $player->getLevel()), $data[1], $data[2]);
+            $floatingText = new FloatingText(new Position($player->getPosition()->getX(), $player->getPosition()->getY() + 1.8, $player->getPosition()->getZ(), $player->getWorld()), $data[1], $data[2]);
 
             $api->registerText($floatingText);
             $api->generateConfig($floatingText);
@@ -262,13 +263,13 @@ class WFTCommand extends PluginCommand
                     break;
                 case self::MODE_TP:
 
-                    WFT::getInstance()->levelCheck($text->getPosition()->getLevel()->getName());
+                    WFT::getInstance()->levelCheck($text->getPosition()->getWorld()->getDisplayName());
                     $player->teleport($text->getPosition());
 
                     break;
                 case self::MODE_TPHERE:
 
-                    $text->setPosition(new Position($player->getX(), $player->getY() + 1.8, $player->getZ(), $player->getLevel()));
+                    $text->setPosition(new Position($player->getPosition()->getX(), $player->getPosition()->getY() + 1.8, $player->getPosition()->getZ(), $player->getWorld()));
                     WFT::getAPI()::respawnToAll($text);
                     WFT::getAPI()->generateConfig($text);
 
