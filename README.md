@@ -1,4 +1,4 @@
-# WFT - 1.1.0
+# WFT - 1.1.1
 ### Hello, and welcome to **WFT**. 
 
 ![](logo.png)
@@ -83,7 +83,7 @@ Subcommand | Permission | Description | Aliases
   `{DATE}`|Current server date (Customisable in config)
 
 ### Create your own
-  Coming soon...
+  See how to create your own [here](https://github.com/WolfDen133/WFT-Tags-Example)
   
 ## API
 
