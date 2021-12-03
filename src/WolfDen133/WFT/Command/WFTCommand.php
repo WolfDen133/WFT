@@ -2,8 +2,8 @@
 
 namespace WolfDen133\WFT\Command;
 
-use jojoe77777\FormAPI\CustomForm;
-use jojoe77777\FormAPI\SimpleForm;
+use WolfDen133\WFT\Form\CustomForm;
+use WolfDen133\WFT\Form\SimpleForm;
 
 use pocketmine\command\CommandSender;
 use pocketmine\command\defaults\PluginsCommand;
