@@ -6,4 +6,6 @@ projects:
   WFT:
     path: ""
     icon: "logo.png"
+    lint:
+      phpstan: false
 ...
