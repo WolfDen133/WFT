@@ -4,6 +4,7 @@ namespace WolfDen133\WFT\Utils;
 
 use pocketmine\player\Player;
 use pocketmine\utils\TextFormat;
+use WolfDen133\WFT\Event\TagReplaceEvent;
 use WolfDen133\WFT\WFT;
 
 class Utils {
@@ -40,11 +41,14 @@ class Utils {
     public static function getFormattedText (string $rawtext, Player $player) : string
     {
         $wildcards = self::getWildCards($player);
-        $text = $rawtext;
+        $text = TextFormat::colorize($rawtext);
 
         foreach ($wildcards as $find=>$replace) $text = str_replace($find, $replace, $text);
 
-        return TextFormat::colorize($text);
+        $ev = new TagReplaceEvent($text, $player);
+        $ev->call();
+
+        return $ev->getText();
     }
 
 }
