@@ -1,0 +1,42 @@
+# Russian language for WFT
+
+# Name for the language file
+name: "ru"
+
+# Main prefix for the plugin messages
+prefix: "&l&8[&r&aWFT&l&8]"
+
+# Main command language options
+command:
+  lable: 'wft'
+  description: 'Управляйте плавающими текстами'
+  usage: 'Использование: /wft help'
+  permission: 'wft.command.use'
+  aliases: ['ft', 'wfloatingtext', 'floatingtext', 'wolfiesft']
+  sender: '&eИзвините, эта команда предназначена только для игроков!'
+  help: "<===== WFT ПОМОЩЬ =====>{LINE}Команда: /wft <aргументы: mixed>{LINE}Аргументы:{LINE}{LINE} add:{LINE}    Описание: Добавить плавающий текст{LINE}  использование: /wft add (<имя: string> [текст: string]){LINE}{LINE} Удалить:{LINE}    Описание: Удалить плавающий текст{LINE}    использование: /wft remove (имя: string>){LINE}{LINE} edit:{LINE}    Описание: Изменить содержимое плавающего текста{LINE}    использование: /wft edit (<имя: string> [newText: string]){LINE}{LINE} tp:{LINE}     Описание: Телепортируватся к плавающему тексту{LINE}    использование: /wft tp (<имя: string>){LINE}{LINE} tphere:{LINE}    Описание: Телепортировать  плавающий текст к вам{LINE}    использование: /wft tphere (<имя: string>){LINE}{LINE} help:{LINE}    Описание: Получите помощь с WFT{LINE}    использование: /wft help{LINE}<==== WFT ПОМОЩЬ ====>"
+
+message:
+  not-found: "Извините, но текст {NAME} не был найден!"
+  exists: "Извините, но текст {NAME} уже существует!"
+  remove: "Текст {NAME} удален!"
+  add: "Текст {NAME} создан успешно!"
+  update: "Текст {NAME} успешно обновлен!"
+
+form:
+  create:
+    title: "Создать плавающий текст"
+    content: "Заполните форму ниже, чтобы создать новый плавающий текст."
+    name-title: "Имя плавающего текста"
+    name-placeholder: "Уникальный идентификатор"
+    text-title: "Контент плавающего текста"
+    text-placeholder: "Используйте & для цвета"
+
+  edit:
+    title: "Редактировать плавающий текст"
+    content: "Отредактируйте содержимое {NAME} в форме ниже."
+    text-title: "Плавающий текстовый контент"
+    text-placeholder: "Используйте & для цвет"
+
+  list-title: "Выделите плавающий текст"
+
