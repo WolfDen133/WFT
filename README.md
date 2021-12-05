@@ -83,7 +83,7 @@ Subcommand | Permission | Description | Aliases
   `{DATE}`|Current server date (Customisable in config)
 
 ### Create your own
-  See how to create your own [here](https://github.com/wolfden133/wft-tag-example)
+  See how to create your own [here](https://github.com/WolfDen133/WFT-Tags-Example)
  
   
 ## API
