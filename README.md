@@ -123,7 +123,7 @@ That's it, the rest is handled by the plugin
 
 ## Credit
 
-- WolfDen133 (Main Programmer) [ฬ๏ɭŦ๔єภ133;#6969]
-- TheFixDev (Translation) [𝓗𝓪𝓫𝓓𝓲𝓬𝓱𝓢𝓸𝓖𝓮𝓻𝓷#6158]
-- kostamax27 (Suggestion & Translation) [kostamax27#0160]
+- **WolfDen133** (*Main Programmer*) [ฬ๏ɭŦ๔єภ133;#6969]
+- **TheFixDev** (*Translation*) [𝓗𝓪𝓫𝓓𝓲𝓬𝓱𝓢𝓸𝓖𝓮𝓻𝓷#6158]
+- **kostamax27** (*Suggestion & Translation*) [kostamax27#0160]
 
