@@ -23,6 +23,7 @@ use pocketmine\network\mcpe\protocol\PlayerListPacket;
 use pocketmine\network\mcpe\protocol\types\inventory\ItemStackWrapper;
 use pocketmine\network\mcpe\protocol\types\PlayerListEntry;
 use pocketmine\network\mcpe\convert\SkinAdapterSingleton;
+use WolfDen133\WFT\Event\TagReplaceEvent;
 use WolfDen133\WFT\Utils\Utils;
 use pocketmine\player\Player;
 
@@ -52,6 +53,7 @@ class SubText
         $pk = new SetActorDataPacket();
         $pk->actorRuntimeId = $this->runtime;
         $pk->tick = 0;
+
         $pk->metadata = [
             EntityMetadataProperties::NAMETAG => new StringMetadataProperty(Utils::getFormattedText($this->text, $player))
         ];

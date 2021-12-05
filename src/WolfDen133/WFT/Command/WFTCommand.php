@@ -2,17 +2,17 @@
 
 namespace WolfDen133\WFT\Command;
 
+use pocketmine\lang\KnownTranslationFactory;
 use WolfDen133\WFT\Form\CustomForm;
 use WolfDen133\WFT\Form\SimpleForm;
 
 use pocketmine\command\CommandSender;
 use pocketmine\command\defaults\PluginsCommand;
-use pocketmine\command\PluginCommand;
 
 use pocketmine\world\Position;
+
 use pocketmine\player\Player;
 
-use pocketmine\plugin\Plugin;
 use pocketmine\utils\TextFormat;
 
 use WolfDen133\WFT\WFT;
@@ -29,21 +29,20 @@ class WFTCommand extends PluginsCommand
     {
         parent::__construct($name);
 
-        $this->setPermission("wft.command.use");
-        $this->setPermissionMessage(TextFormat::RED . "Unknown command. Try /help for a list of commands");
-        $this->setDescription("Manage floating texts");
-        $this->setAliases(["ft"]);
+        $this->setPermission(WFT::getLanguageManager()->getLanguage()->getValue("command.permission"));
+        $this->setDescription(WFT::getLanguageManager()->getLanguage()->getValue("command.description"));
+        $this->setAliases(WFT::getLanguageManager()->getLanguage()->getValue("command.aliases"));
     }
 
     public function execute(CommandSender $sender, string $commandLabel, array $args)
     {
         if (!($sender instanceof Player)) {
-            $sender->sendMessage(TextFormat::RED . "Sorry, that command is for players only!");
+            $sender->sendMessage(WFT::getLanguageManager()->getLanguage()->getValue("command.sender"));
             return;
         }
 
         if (!$sender->hasPermission($this->getPermission())) {
-            $sender->sendMessage($this->getPermissionMessage());
+            $this->testPermission($sender);
             return;
         }
 
@@ -76,13 +75,7 @@ class WFTCommand extends PluginsCommand
                 case "h":
                 case "?":
 
-                    $sender->sendMessage("<===== WFT HELP =====>\n" . "Command: /wft <arguments: mixed>\n" . "Arguments:\n\n" .
-                        " add:\n    Description: Add a floating-text\n  Usage: /wft add (<name: string> [text: string])" . "\n\n" .
-                        " remove:\n    Description: Remove a floating-text\n    Usage: /wft remove (<name: string>)" . "\n\n" .
-                        " edit:\n    Description: Change a floating-text's text\n    Usage: /wft edit (<name: string> [newText: string])" . "\n\n" .
-                        " tp:\n     Description: Teleport to a floating-text\n    Usage: /wft tp (<name: string>)" . "\n\n" .
-                        " tphere:\n    Description: Teleport a floating-text to you\n    Usage: /wft tphere (<name: string>)" . "\n\n" .
-                        " help:\n    Description: Get help with WFT\n    Usage: /wft help\n<==== WFT HELP ====>");
+                    $sender->sendMessage(str_replace("{LINE}", "\n", WFT::getLanguageManager()->getLanguage()->getValue("command.help")));
                     break;
 
                 case "remove":
@@ -134,7 +127,7 @@ class WFTCommand extends PluginsCommand
         if (count($args) == 2) {
 
             if (($text = WFT::getAPI()->getTextByName($args[1])) === null) {
-                $sender->sendMessage("Sorry, that text doesnt exist!");
+                $sender->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("message.not-found", ["{NAME}" => $args[1]]));
                 return;
             }
 
@@ -147,7 +140,7 @@ class WFTCommand extends PluginsCommand
                 case "r":
 
                     WFT::getAPI()->removeText($text);
-                    $sender->sendMessage("Successfully removed text " . $text->getName() . "!");
+                    $sender->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("message.not-found", ["{NAME}" => $text->getName()]));
 
                     break;
                 case "tp":
@@ -167,13 +160,12 @@ class WFTCommand extends PluginsCommand
                 case "tph":
                 case "move":
 
-                    $text->setPosition(new Position($sender->getPosition()->getY(), $sender->getPosition()->getY() + 1.8, $sender->getPosition()->getZ(), $sender->getWorld()));
+                    $text->setPosition(new Position($sender->getPosition()->getX(), $sender->getPosition()->getY() + 1.8, $sender->getPosition()->getZ(), $sender->getWorld()));
                     WFT::getAPI()::respawnToAll($text);
                     WFT::getAPI()->generateConfig($text);
 
                     break;
             }
-
             return;
         }
 
@@ -190,7 +182,7 @@ class WFTCommand extends PluginsCommand
                 case "a":
 
                     if (in_array($args[1], array_keys($api->getTexts()))) {
-                        $sender->sendMessage("Sorry, that text already exists!");
+                        $sender->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("message.exists", ["{NAME}" => $args[1]]));
                         return;
                     }
 
@@ -200,20 +192,20 @@ class WFTCommand extends PluginsCommand
                     $api->generateConfig($floatingText);
                     $api::spawnToAll($floatingText);
 
-                    $sender->sendMessage("Successfully created the text $args[1]!");
+                    $sender->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("message.add", ["{NAME}" => $floatingText->getName()]));
                     break;
                 case "edit":
                 case "e":
                 case "change":
 
                     if (($text = WFT::getAPI()->getTextByName($args[1])) === null) {
-                        $sender->sendMessage("Sorry, that text doesnt exist!");
+                        $sender->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("message.not-found", ["{NAME}" => $args[1]]));
                         return;
                     }
 
                     $text->setText(implode(" ", array_splice($args, 2)));
                     $api::respawnToAll($text);
-                    $sender->sendMessage("Successfully updated the text $args[1]!");
+                    $sender->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("message.update", ["{NAME}" => $args[1]]));
                     break;
             }
         }
@@ -228,7 +220,7 @@ class WFTCommand extends PluginsCommand
             $api = WFT::getAPI();
 
             if (in_array($data[1], array_keys($api->getTexts()))) {
-                $player->sendMessage("Sorry, that text already exists!");
+                $player->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("exists", ["{NAME}" => $data[1]]));
                 return;
             }
 
@@ -238,13 +230,13 @@ class WFTCommand extends PluginsCommand
             $api->generateConfig($floatingText);
             $api::spawnToAll($floatingText);
 
-            $player->sendMessage("Successfully created the text $data[1]!");
+            $player->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("add", ["{NAME}" => $floatingText->getName()]));
         });
 
-        $form->setTitle("Create a Floating-Text");
-        $form->addLabel("Create a new floating text by filling out the form below.");
-        $form->addInput("Name", "Text's unique name");
-        $form->addInput("Text", "Text's content (use & for colors)");
+        $form->setTitle(WFT::getLanguageManager()->getLanguage()->getFormText("create.title"));
+        $form->addLabel(WFT::getLanguageManager()->getLanguage()->getFormText("create.content"));
+        $form->addInput(WFT::getLanguageManager()->getLanguage()->getFormText("create.name-title"), WFT::getLanguageManager()->getLanguage()->getFormText("create.name-placeholder"));
+        $form->addInput(WFT::getLanguageManager()->getLanguage()->getFormText("create.text-title"), WFT::getLanguageManager()->getLanguage()->getFormText("create.text-placeholder"));
 
         $player->sendForm($form);
     }
@@ -277,13 +269,13 @@ class WFTCommand extends PluginsCommand
                 case self::MODE_REMOVE:
 
                     WFT::getAPI()->removeText($text);
-                    $player->sendMessage("Successfully removed text " . $text->getName() . "!");
+                    $player->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("remove", ["{NAME}" => $text->getName()]));
 
                     break;
             }
         });
 
-        $form->setTitle("Select a Floating-Text");
+        $form->setTitle(WFT::getLanguageManager()->getLanguage()->getFormText("list-title"));
 
         foreach (WFT::getAPI()->getTexts() as $text) {
             $form->addButton(TextFormat::DARK_GRAY . $text->getName() . "\n" . TextFormat::GRAY . $text->getText(), -1, "", $text->getName());
@@ -302,13 +294,13 @@ class WFTCommand extends PluginsCommand
 
             $floatingText->setText($data[1]);
             $api::respawnToAll($floatingText);
-            $player->sendMessage("Successfully updated the text $data[1]!");
+            $player->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("update", ["{NAME}" => $floatingText->getName()]));
 
         });
 
-        $form->setTitle("Edit a Floating-Text");
-        $form->addLabel("Edit " . $floatingText->getName() . "'s content by filling out the form below.");
-        $form->addInput("Text", "Text's content (use & for colors)", $floatingText->getText());
+        $form->setTitle(WFT::getLanguageManager()->getLanguage()->getFormText("edit.title"));
+        $form->addLabel(WFT::getLanguageManager()->getLanguage()->getFormText("edit.content", ["{NAME}" => $floatingText->getName()]));
+        $form->addInput(WFT::getLanguageManager()->getLanguage()->getFormText("edit.text-title"), WFT::getLanguageManager()->getLanguage()->getFormText("edit.text-placeholder"), $floatingText->getText());
 
         $player->sendForm($form);
     }

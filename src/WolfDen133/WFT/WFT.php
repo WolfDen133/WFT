@@ -8,23 +8,27 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use pocketmine\world\Position;
 use RecursiveDirectoryIterator;
+
 use WolfDen133\WFT\Command\WFTCommand;
+use WolfDen133\WFT\Lang\LanguageManager;
 use WolfDen133\WFT\Task\UpdateTask;
 use WolfDen133\WFT\Texts\FloatingText;
 
-class WFT extends PluginBase{
+class WFT extends PluginBase
+{
 
     public static bool $display_identifier = false;
-    public static self $instance;
+    private static self $instance;
 
-    public static API $api;
+    private static API $api;
+    private static LanguageManager $languageManager;
 
-    protected function onLoad() : void
+    public function onLoad() : void
     {
         $this->saveDefaultConfig();
     }
 
-    protected function onEnable() : void
+    public function onEnable() : void
     {
         self::$instance = $this;
 
@@ -35,6 +39,7 @@ class WFT extends PluginBase{
 
         self::$display_identifier = $this->getConfig()->get("display-identifier");
         self::$api = new API();
+        self::$languageManager = new LanguageManager($this);
 
         $this->getServer()->getPluginManager()->registerEvents(new EventListener(), $this);
         $this->getServer()->getCommandMap()->register("WFT", new WFTCommand("wft"));
@@ -82,4 +87,8 @@ class WFT extends PluginBase{
         return self::$instance;
     }
 
+    public static function getLanguageManager () : LanguageManager
+    {
+        return self::$languageManager;
+    }
 }

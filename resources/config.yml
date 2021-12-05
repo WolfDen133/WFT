@@ -1,5 +1,8 @@
 # WFT, MADE BY WOLFDEN133
 
+# Master language for the plugin
+language: "en"
+
 # Timezone for dates and times
 timezone: "UTC"
 

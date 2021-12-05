@@ -1,4 +1,4 @@
-# WFT - 1.1.1
+# WFT - 1.1.0
 ### Hello, and welcome to **WFT**. 
 
 ![](logo.png)
@@ -12,14 +12,14 @@ I have added features, because I felt the plugin needed them, and removed featur
 ## Features added
 
 - Optional display identifier
-- More Tags (With player made tags)
+- More Tags
 - Per-Player Texts
 - Packet Texts over Entity
 - More efficient and pretty code
 
 Display identifier: You can now turn on or off the option to see the texts unique identifier (Much like Texter, but optional)
 
-More tags: Added many more tags for better, they are also player specific (see the tags section on how to make your own tags).
+More tags: Added many more tags for better, they are also player specific.
 
 Per-Player texts: Players will now get a specific text depending on what tag you use.
 
@@ -83,7 +83,7 @@ Subcommand | Permission | Description | Aliases
   `{DATE}`|Current server date (Customisable in config)
 
 ### Create your own
-  See how to create your own [here](https://github.com/WolfDen133/WFT-Tags-Example)
+  Coming soon...
   
 ## API
 

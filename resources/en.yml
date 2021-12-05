@@ -1,0 +1,44 @@
+# English language for WFT
+
+# Name for the language file
+name: "en"
+
+
+# Main prefix for the plugin messages
+prefix: "&l&8[&r&aWFT&l&8]"
+
+# Main command language options
+command:
+  lable: 'wft'
+  description: 'Manage your floating texts'
+  usage: 'Usage: /wft help'
+  permission: 'wft.command.use'
+  aliases: ['ft', 'wfloatingtext', 'floatingtext', 'wolfiesft']
+  sender: '&eSorry, that command is for players only!'
+  help: "<===== WFT HELP =====>{LINE}Command: /wft <arguments: mixed>{LINE}Arguments:{LINE}{LINE} add:{LINE}    Description: Add a floating-text{LINE}  Usage: /wft add (<name: string> [text: string]){LINE}{LINE} remove:{LINE}    Description: Remove a floating-text{LINE}    Usage: /wft remove (<name: string>){LINE}{LINE} edit:{LINE}    Description: Change a floating-text's text{LINE}    Usage: /wft edit (<name: string> [newText: string]){LINE}{LINE} tp:{LINE}     Description: Teleport to a floating-text{LINE}    Usage: /wft tp (<name: string>){LINE}{LINE} tphere:{LINE}    Description: Teleport a floating-text to you{LINE}    Usage: /wft tphere (<name: string>){LINE}{LINE} help:{LINE}    Description: Get help with WFT{LINE}    Usage: /wft help{LINE}<==== WFT HELP ====>"
+
+message:
+  not-found: "Sorry, but the text {NAME} can not be found!"
+  exists: "Sorry, but the text {NAME} already exists!"
+  remove: "Successfully removed the text {NAME}!"
+  add: "Successfully created the text {NAME}!"
+  update: "Successfully updated the text {NAME}!"
+
+form:
+  create:
+    title: "Create a Floating Text"
+    content: "Fill out the form below to create a new floating text."
+    name-title: "Floating Text name"
+    name-placeholder: "Unique identifier"
+    text-title: "Floating Text content"
+    text-placeholder: "Use & for colors"
+
+  edit:
+    title: "Edit a floating text"
+    content: "Edit a {NAME} content in the form below."
+    text-title: "Floating Text content"
+    text-placeholder: "Use & for colors"
+
+  list-title: "Select a floating text"
+
+
