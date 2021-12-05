@@ -1,0 +1,41 @@
+# Ukrainian language for WFT
+
+# Name for the language file
+name: "ua"
+
+# Main prefix for the plugin messages
+prefix: "&l&8[&r&aWFT&l&8]"
+
+# Main command language options
+command:
+  lable: 'wft'
+  description: 'Керуйте плаваючими текстами'
+  usage: ':Використання /wft help'
+  permission: 'wft.command.use'
+  aliases: ['ft', 'wfloatingtext', 'floatingtext', 'wolfiesft']
+  sender: '&eВибачте, ця команда призначена лише для гравців!'
+  help: "<===== WFT ДОПОМОГА =====>{LINE}Команда: /wft <аргументи: mixed>{LINE}Аргументи:{LINE}{LINE} add:{LINE}    Опис: Додати плаваючий текст{LINE}  використання: /wft add (<имя: string> [текст: string]){LINE}{LINE} Видалити:{LINE}    Опис: Видалити плаваючий текст{LINE}    використання/wft remove (ім'я: string>){LINE}{LINE} edit:{LINE}    Опис: Змінити вміст плаваючого тексту{LINE}    використання: /wft edit (<ім'я: string> [newText: string]){LINE}{LINE} tp:{LINE}     Опис: Телепортируються до плаваючого тексту{LINE}    використання: /wft tp (<ім'я: string>){LINE}{LINE} tphere:{LINE}    Опис: {LINE}  Телепортувати плаваючий текст до вас  використання: /wft tphere (<ім'я: string>){LINE}{LINE} help:{LINE}    Опис: Получите помощь с WFT{LINE}    використання: /wft help{LINE}<==== WFT ДОПОМОГА====>"
+
+message:
+  not-found: "Вибачте, але текст {NAME} не знайдено!"
+  exists: "Вибачте, але текст {NAME} вже існує!"
+  remove: "Текст {NAME} видален!"
+  add: "Текст {NAME} створено успішно!"
+  update: "Текст {NAME} успішно оновлен!"
+
+form:
+  create:
+    title: "Створити плаваючий текст"
+    content: "Заповніть форму нижче, щоб створити новий плаваючий текст."
+    name-title: "Ім'я плаваючого тексту"
+    name-placeholder: "Унікальний ідентифікатор"
+    text-title: "Контент плаваючого тексту"
+    text-placeholder: "Використовуйте & для кольору"
+
+  edit:
+    title: "Редагувати плаваючий текст"
+    content: "Відредагуйте вміст {NAME} у формі нижче."
+    text-title: "Плаваючий текстовий контент"
+    text-placeholder: "Використовуйте & для кольору"
+
+  list-title: "Виділіть плаваючий текст"
