@@ -1,4 +1,4 @@
-# WFT - 1.1.2 (BETA)
+# WFT - 1.2.0 (BETA)
 ### Hello, and welcome to **WFT**. 
 
 ![](logo.png)
@@ -11,6 +11,7 @@ I have added features, because I felt the plugin needed them, and removed featur
 
 ## Features added
 
+- Multiple language support
 - Optional display identifier
 - More Tags
 - Per-Player Texts
