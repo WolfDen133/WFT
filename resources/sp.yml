@@ -1,0 +1,39 @@
+# Name for the language file
+name: "sp"
+
+# Main prefix for the plugin messages
+prefix: "&l&8[&r&aWFT&l&8]"
+
+# Main command language options
+command:
+  lable: 'wft'
+  description: 'Gestiona tus textos flotantes'
+  usage: 'Uso: /wft help'
+  permission: 'wft.command.use'
+  aliases: ['ft', 'wfloatingtext', 'floatingtext', 'wolfiesft']
+  sender: '&eLo siento, ese comando es solo para jugadores!'
+  help: "<===== AYUDA DE WFT =====>{LINE}Comando: /wft <argumentos: mixed>{LINE}Argumentos:{LINE}{LINE} add:{LINE}    Descripción: Añade un texto flotante{LINE}  Uso: /wft add (<nombre: string> [texto: string]){LINE}{LINE} remove:{LINE}    Descripción: Quita un texto flotante{LINE}    Uso: /wft remove (<nombre: string>){LINE}{LINE} edit:{LINE}    Descripción: Cambia el texto de un texto flotante{LINE}    Uso: /wft edit (<nombre: string> [nuevoTexto: string]){LINE}{LINE} tp:{LINE}     Descripción: Te teletransportas hacia un texto flotante{LINE}    Uso: /wft tp (<nombre: string>){LINE}{LINE} tphere:{LINE}    Descripción: Teletransporta un texto flotante hacia a ti{LINE}    Uso: /wft tphere (<nombre: string>){LINE}{LINE} help:{LINE}    Descripción: Obtienes ayuda con WFT{LINE}    Usage: /wft help{LINE}<==== AYUDA DE WFT ====>"
+
+message:
+  not-found: "Lo siento, pero el texto {NAME} no ha podido ser encontrado!"
+  exists: "Lo siento, pero el texto {NAME} ya existe!"
+  remove: "Has eliminado el texto {NAME} con éxito!"
+  add: "Has creado el texto {NAME} con éxito!"
+  update: "Has actualizado el texto {NAME} con éxito!"
+
+form:
+  create:
+    title: "Crear un texto flotante"
+    content: "Rellena el siguiente formulario para crear un nuevo texto flotante."
+    name-title: "Nombre del texto flotante"
+    name-placeholder: "Identificador único"
+    text-title: "Contenido del texto flotante"
+    text-placeholder: "Usa & para los colores"
+
+  edit:
+    title: "Edita un texto flotante"
+    content: "Edita el contenido de {NAME} en el siguiente formulario."
+    text-title: "Contenido del texto flotante"
+    text-placeholder: "Usa & para los colores"
+
+  list-title: "Selecciona un texto flotante"
