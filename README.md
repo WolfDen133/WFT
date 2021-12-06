@@ -18,7 +18,9 @@ I have added features, because I felt the plugin needed them, and removed featur
 - Packet Texts over Entity
 - More efficient and pretty code
 
-Display identifier: You can now turn on or off the option to see the texts unique identifier (Much like Texter, but optional)
+Language support: You can now change the language of the plugin to suit your server.
+
+Display identifier: You can now turn on or off the option to see the texts unique identifier (Much like Texter, but optional).
 
 More tags: Added many more tags for better, they are also player specific.
 
