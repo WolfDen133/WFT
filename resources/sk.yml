@@ -1,0 +1,42 @@
+# Slovak language for WFT
+
+# Name for the language file
+name: "sk"
+
+
+# Main prefix for the plugin messages
+prefix: "&l&8[&r&aWFT&l&8]"
+
+# Main command language options
+command:
+  lable: 'wft'
+  description: 'Spravuj svoje lietajúce texty.'
+  usage: 'Použitie: /wft help'
+  permission: 'wft.command.use'
+  aliases: ['ft', 'wfloatingtext', 'floatingtext', 'wolfiesft']
+  sender: '&ePrepáč, ale tento príkaz je len pre hráčov!'
+  help: "<===== WFT HELP =====>{LINE}Príkaz: /wft <arguments: mixed>{LINE}Arguments:{LINE}{LINE} add:{LINE}    Popis: Add a floating-text{LINE}  Použitie: /wft add (<name: string> [text: string]){LINE}{LINE} remove:{LINE}    Popis: Remove a floating-text{LINE}    Použitie: /wft remove (<name: string>){LINE}{LINE} edit:{LINE}    Popis: Change a floating-text's text{LINE}    Použitie: /wft edit (<name: string> [newText: string]){LINE}{LINE} tp:{LINE}     Popis: Teleport to a floating-text{LINE}    Použitie: /wft tp (<name: string>){LINE}{LINE} tphere:{LINE}    Popis: Teleport a floating-text to you{LINE}    Použitie: /wft tphere (<name: string>){LINE}{LINE} help:{LINE}    Popis: Get help with WFT{LINE}    Použitie: /wft help{LINE}<==== WFT HELP ====>"
+
+message:
+  not-found: "Text {NAME} nebol nájdený!"
+  exists: "Text {NAME} už existuje!"
+  remove: "Text {NAME} bol úspešne odstránený!"
+  add: "Text {NAME} bol úspešne vytvorený!"
+  update: "Text {NAME} bol úspešne upravený!"
+
+form:
+  create:
+    title: "Vytvorenie lietajúceho textu."
+    content: "Vyplň na vytvorenie nového lietajúceho textu."
+    name-title: "Názov lietajúceho textu"
+    name-placeholder: "Jedinečný identifikátor"
+    text-title: "Obsah lietajúceho textu"
+    text-placeholder: "Použi kódy s & pre farby"
+
+  edit:
+    title: "Upravenie lietajúceho textu."
+    content: "Vyplň na upravenie textu {NAME}."
+    text-title: "Obsah lietajúceho textu"
+    text-placeholder: "Použi kódy s & pre farby"
+
+  list-title: "Vyber lietajúci text"
