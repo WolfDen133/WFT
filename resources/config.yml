@@ -1,6 +1,7 @@
 # WFT, MADE BY WOLFDEN133
 
 # Master language for the plugin
+# All languages in the "lang/" dir will work
 language: "en"
 
 # Timezone for dates and times
