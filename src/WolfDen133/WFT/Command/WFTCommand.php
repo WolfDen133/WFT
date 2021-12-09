@@ -2,7 +2,6 @@
 
 namespace WolfDen133\WFT\Command;
 
-use JetBrains\PhpStorm\Pure;
 use pocketmine\command\Command;
 
 use pocketmine\plugin\Plugin;
@@ -36,6 +35,7 @@ class WFTCommand extends Command implements PluginOwned
         $this->setPermission(WFT::getLanguageManager()->getLanguage()->getValue("command.permission"));
         $this->setDescription(WFT::getLanguageManager()->getLanguage()->getValue("command.description"));
         $this->setAliases(WFT::getLanguageManager()->getLanguage()->getValue("command.aliases"));
+        $this->setUsage("/wft help");
     }
 
     public function execute(CommandSender $sender, string $commandLabel, array $args)
