@@ -88,6 +88,16 @@ Subcommand | Permission | Description | Aliases
 ### Create your own
   See how to create your own [here](https://github.com/WolfDen133/WFT-Tags-Example)
  
+## Languages
+- Czech (cz)
+- English (en)
+- German (ge)
+- Russian (ru)
+- Slovak (sk)
+- Spanish (sp)
+- Ukrainian (ua)
+
+But feel free to add your own!
   
 ## API
 
