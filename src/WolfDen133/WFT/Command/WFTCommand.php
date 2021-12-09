@@ -2,12 +2,16 @@
 
 namespace WolfDen133\WFT\Command;
 
-use pocketmine\lang\KnownTranslationFactory;
+use JetBrains\PhpStorm\Pure;
+use pocketmine\command\Command;
+
+use pocketmine\plugin\Plugin;
+use pocketmine\plugin\PluginOwned;
+
 use WolfDen133\WFT\Form\CustomForm;
 use WolfDen133\WFT\Form\SimpleForm;
 
 use pocketmine\command\CommandSender;
-use pocketmine\command\defaults\PluginsCommand;
 
 use pocketmine\world\Position;
 
@@ -18,7 +22,7 @@ use pocketmine\utils\TextFormat;
 use WolfDen133\WFT\WFT;
 use WolfDen133\WFT\Texts\FloatingText;
 
-class WFTCommand extends PluginsCommand
+class WFTCommand extends Command implements PluginOwned
 {
     public const MODE_EDIT = 0;
     public const MODE_TP = 1;
@@ -41,10 +45,7 @@ class WFTCommand extends PluginsCommand
             return;
         }
 
-        if (!$sender->hasPermission($this->getPermission())) {
-            $this->testPermission($sender);
-            return;
-        }
+        if (!$this->testPermission($sender)) return;
 
         if (empty($args)) {
             $sender->sendMessage($this->getUsage());
@@ -303,5 +304,10 @@ class WFTCommand extends PluginsCommand
         $form->addInput(WFT::getLanguageManager()->getLanguage()->getFormText("edit.text-title"), WFT::getLanguageManager()->getLanguage()->getFormText("edit.text-placeholder"), $floatingText->getText());
 
         $player->sendForm($form);
+    }
+
+    public function getOwningPlugin(): Plugin
+    {
+        return WFT::getInstance();
     }
 }
