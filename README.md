@@ -128,6 +128,7 @@ That's it, the rest is handled by the plugin
 ## Credit
 
 - [**WolfDen133**](https://github.com/WolfDen133) (*Main Programmer*) [ฬ๏ɭŦ๔єภ133;#6969]
+- [**McMelonTV**](https://github.com/McMelonTV) (*Translations - Slovak, Czech*) [McMelon#9999]
 - [**TheFixDev**](https://github.com/TheFixDev) (*Translation - German*) [𝓗𝓪𝓫𝓓𝓲𝓬𝓱𝓢𝓸𝓖𝓮𝓻𝓷#6158]
 - [**kostamax27**](https://github.com/kostamax27) (*Suggestion & Translation - Russian, Ukrainian*) [kostamax27#0160]
 - [**Sergittos**](https://github.com/Sergittos) (*Translation - Spanish*) [Sergittos#0001]
