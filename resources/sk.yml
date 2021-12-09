@@ -15,7 +15,7 @@ command:
   permission: 'wft.command.use'
   aliases: ['ft', 'wfloatingtext', 'floatingtext', 'wolfiesft']
   sender: '&ePrepáč, ale tento príkaz je len pre hráčov!'
-  help: "<===== WFT HELP =====>{LINE}Príkaz: /wft <arguments: mixed>{LINE}Arguments:{LINE}{LINE} add:{LINE}    Popis: Pridanie lietajúceho textu{LINE}  Použitie: /wft add (<name: string> [text: string]){LINE}{LINE} remove:{LINE}    Popis: Odstránenie lietajúceho textu{LINE}    Použitie: /wft remove (<name: string>){LINE}{LINE} edit:{LINE}    Popis: Upravenie lietajúceho textu{LINE}    Použitie: /wft edit (<name: string> [newText: string]){LINE}{LINE} tp:{LINE}     Popis: Teleportovanie na lietajúci text{LINE}    Použitie: /wft tp (<name: string>){LINE}{LINE} tphere:{LINE}    Popis: Teleportovanie lietajúceho textu ku vám{LINE}    Použitie: /wft tphere (<name: string>){LINE}{LINE} help:{LINE}    Popis: WFT Pomoc{LINE}    Použitie: /wft help{LINE}<==== WFT HELP ====>"
+  help: "<===== WFT HELP =====>{LINE}Príkaz: /wft <arguments: mixed>{LINE}Arguments:{LINE}{LINE} add:{LINE}    Popis: Pridanie lietajúceho textu{LINE}   Použitie: /wft add (<name: string> [text: string]){LINE}{LINE} remove:{LINE}    Popis: Odstránenie lietajúceho textu{LINE}    Použitie: /wft remove (<name: string>){LINE}{LINE} edit:{LINE}    Popis: Upravenie lietajúceho textu{LINE}    Použitie: /wft edit (<name: string> [newText: string]){LINE}{LINE} tp:{LINE}     Popis: Teleportovanie na lietajúci text{LINE}    Použitie: /wft tp (<name: string>){LINE}{LINE} tphere:{LINE}    Popis: Teleportovanie lietajúceho textu ku vám{LINE}    Použitie: /wft tphere (<name: string>){LINE}{LINE} help:{LINE}    Popis: WFT Pomoc{LINE}    Použitie: /wft help{LINE}<==== WFT HELP ====>"
 
 message:
   not-found: "Text {NAME} nebol nájdený!"
