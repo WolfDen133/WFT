@@ -128,7 +128,7 @@ class WFTCommand extends Command implements PluginOwned
         if (count($args) == 2) {
 
             if (($text = WFT::getAPI()->getTextByName($args[1])) === null) {
-                $sender->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("message.not-found", ["{NAME}" => $args[1]]));
+                $sender->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("not-found", ["{NAME}" => $args[1]]));
                 return;
             }
 
@@ -141,7 +141,7 @@ class WFTCommand extends Command implements PluginOwned
                 case "r":
 
                     WFT::getAPI()->removeText($text);
-                    $sender->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("message.not-found", ["{NAME}" => $text->getName()]));
+                    $sender->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("not-found", ["{NAME}" => $text->getName()]));
 
                     break;
                 case "tp":
@@ -183,7 +183,7 @@ class WFTCommand extends Command implements PluginOwned
                 case "a":
 
                     if (in_array($args[1], array_keys($api->getTexts()))) {
-                        $sender->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("message.exists", ["{NAME}" => $args[1]]));
+                        $sender->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("exists", ["{NAME}" => $args[1]]));
                         return;
                     }
 
@@ -193,20 +193,20 @@ class WFTCommand extends Command implements PluginOwned
                     $api->generateConfig($floatingText);
                     $api::spawnToAll($floatingText);
 
-                    $sender->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("message.add", ["{NAME}" => $floatingText->getName()]));
+                    $sender->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("add", ["{NAME}" => $floatingText->getName()]));
                     break;
                 case "edit":
                 case "e":
                 case "change":
 
                     if (($text = WFT::getAPI()->getTextByName($args[1])) === null) {
-                        $sender->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("message.not-found", ["{NAME}" => $args[1]]));
+                        $sender->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("not-found", ["{NAME}" => $args[1]]));
                         return;
                     }
 
                     $text->setText(implode(" ", array_splice($args, 2)));
                     $api::respawnToAll($text);
-                    $sender->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("message.update", ["{NAME}" => $args[1]]));
+                    $sender->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("update", ["{NAME}" => $args[1]]));
                     break;
             }
         }
