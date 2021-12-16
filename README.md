@@ -91,11 +91,12 @@ Subcommand | Permission | Description | Aliases
 ## Languages
 - Czech (cz)
 - English (en)
-- German (ge)
+- German (de)
 - Russian (ru)
 - Slovak (sk)
 - Spanish (sp)
 - Ukrainian (ua)
+- Turkish (tr)
 
 But feel free to add your own!
   
