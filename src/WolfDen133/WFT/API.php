@@ -30,7 +30,7 @@ class API {
 
         $config->set("name", $floatingText->getName());
         $config->set("lines", explode("#", $floatingText->getText()));
-        $config->set("world", $floatingText->getPosition()->getWorld()->getDisplayName());
+        $config->set("world", $floatingText->getPosition()->getWorld()->getFolderName());
         $config->set("x", $floatingText->getPosition()->getX());
         $config->set("y", $floatingText->getPosition()->getY());
         $config->set("z", $floatingText->getPosition()->getZ());
