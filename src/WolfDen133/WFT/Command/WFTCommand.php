@@ -120,6 +120,9 @@ class WFTCommand extends Command implements PluginOwned
                 case "a":
                     $this->openCreationForm($sender);
                     break;
+                default:
+                    $sender->sendMessage($this->getUsage());
+                    return;
             }
 
             return;
@@ -141,7 +144,7 @@ class WFTCommand extends Command implements PluginOwned
                 case "r":
 
                     WFT::getAPI()->removeText($text);
-                    $sender->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("not-found", ["{NAME}" => $text->getName()]));
+                    $sender->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("remove", ["{NAME}" => $text->getName()]));
 
                     break;
                 case "tp":
@@ -166,6 +169,9 @@ class WFTCommand extends Command implements PluginOwned
                     WFT::getAPI()->generateConfig($text);
 
                     break;
+                default:
+                    $sender->sendMessage($this->getUsage());
+                    return;
             }
             return;
         }
@@ -208,8 +214,13 @@ class WFTCommand extends Command implements PluginOwned
                     $api::respawnToAll($text);
                     $sender->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("update", ["{NAME}" => $args[1]]));
                     break;
+                default:
+                    $sender->sendMessage($this->getUsage());
+                    return;
             }
         }
+
+        $sender->sendMessage($this->getUsage());
     }
 
     public function openCreationForm (Player $player) : void
