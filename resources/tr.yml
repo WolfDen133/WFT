@@ -1,6 +1,6 @@
-# turkish WFT için dil  
+# turkish WFT için dil   
 
-# Dil dosyasının adı  
+# Dil dosyasının adı   
 name: "tr"
 
 
@@ -9,34 +9,34 @@ prefix: "&l&8[&r&aWFT&l&8]"
 
 # Ana komut dili seçenekleri 
 command:
-  lable: 'wft'
-  description: 'Kayan metni yönet '
-  usage: 'yardim: /wft help'
-  permission: 'wft.command.use'
-  aliases: ['ft', 'wfloatingtext', 'floatingtext', 'wolfiesft']
-  sender: '&eBu komut yalnızca belirli oyuncular için tasarlanmıştır. '
-  help: "<===== WFT Yardim sayfası =====>{LINE}komutu: /wft <arguments: mixed>{LINE}Arguments:{LINE}{LINE} add:{LINE}    Description: Bir hologram ekle {LINE}  Yardim: /wft add (<name: string> [text: string]){LINE}{LINE} remove:{LINE}    Description: Bir hologramı kaldır {LINE}    Yardım: /wft remove (<name: string>){LINE}{LINE} edit:{LINE}    Description: Hologramları değiştir {LINE}    Usage: /wft edit (<name: string> [newText: string]){LINE}{LINE} tp:{LINE}     Description: Bir hologramı ışınlayın {LINE}    Usage: /wft tp (<name: string>){LINE}{LINE} tphere:{LINE}    Description: Size bir hologram ışınlayın {LINE}    kullanım: /wft tphere (<name: string>){LINE}{LINE} help:{LINE}    Description: Size yardım sayfasını gösterir {LINE}    kullanim: /wft help{LINE}<==== WFT yardim sayfası ====>" 
+  lable: 'wft'
+  description: 'Kayan metni yönet '
+  usage: 'yardim: /wft help'
+  permission: 'wft.command.use'
+  aliases: ['ft', 'wfloatingtext', 'floatingtext', 'wolfiesft']
+  sender: '&eBu komut yalnızca belirli oyuncular için tasarlanmıştır. '
+  help: "<===== WFT Yardim sayfası =====>{LINE}komutu: /wft <arguments: mixed>{LINE}Arguments:{LINE}{LINE} add:{LINE}       Description: Bir hologram ekle {LINE}   Yardim: /wft add (<name: string> [text: string]){LINE}{LINE} remove:{LINE}       Description: Bir hologramı kaldır {LINE}       Yardım: /wft remove (<name: string>){LINE}{LINE} edit:{LINE}       Description: Hologramları değiştir {LINE}       Usage: /wft edit (<name: string> [newText: string]){LINE}{LINE} tp:{LINE}         Description: Bir hologramı ışınlayın {LINE}       Usage: /wft tp (<name: string>){LINE}{LINE} tphere:{LINE}       Description: Size bir hologram ışınlayın {LINE}       kullanım: /wft tphere (<name: string>){LINE}{LINE} help:{LINE}       Description: Size yardım sayfasını gösterir {LINE}       kullanim: /wft help{LINE}<==== WFT yardim sayfası ====>"
 
 message:
-  not-found: "Üzgünüm ama metin  {NAME} bulunamıyor !"
-  exists: "hologram için üzgünüm  {NAME} zaten var !"
-  remove: "hologram  {NAME} başarıyla kaldırıldı !"
-  add: "hologram  {NAME} başarıyla oluşturuldu "
-  update: "hologram  {NAME} güncellendi " 
+  not-found: "Üzgünüm ama metin  {NAME} bulunamıyor!"
+  exists: "hologram için üzgünüm  {NAME} zaten var!"
+  remove: "hologram  {NAME} başarıyla kaldırıldı!"
+  add: "hologram  {NAME} başarıyla oluşturuldu"
+  update: "hologram  {NAME} güncellendi"
 
 form:
-  create:
-    title: "Bir hologram oluşturun "
-    content: "Bir hologram oluşturabilmek için her şeyi doldurun "
-    name-title: "hologram adı "
-    name-placeholder: "Benzersiz tanımlayıcı "
-    text-title: "Hologram metni "
-    text-placeholder: "Renkler için & yada § kullanın " 
+  create:
+    title: "Bir hologram oluşturun"
+    content: "Bir hologram oluşturabilmek için her şeyi doldurun"
+    name-title: "hologram adı"
+    name-placeholder: "Benzersiz tanımlayıcı"
+    text-title: "Hologram metni"
+    text-placeholder: "Renkler için & yada § kullanın"
 
-  edit:
-    title: "Hologramı düzenle "
-    content: "Hologram {NAME} düzenle"
-    text-title: "Hologram adı"
-    text-placeholder: "Renkler için & yada § kullanın " 
+  edit:
+    title: "Hologramı düzenle"
+    content: "Hologram {NAME} düzenle"
+    text-title: "Hologram adı"
+    text-placeholder: "Renkler için & yada § kullanın"
 
-  list-title: "Bir hologram seçin "
+  list-title: "Bir hologram seçin"
