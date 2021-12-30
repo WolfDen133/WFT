@@ -1,0 +1,44 @@
+# German language for WFT
+
+# Name for the language file
+name: "de"
+
+
+# Main prefix for the plugin messages
+prefix: "&l&8[&r&aWFT&l&8]"
+
+# Main command language options
+command:
+  lable: 'wft'
+  description: 'Verwalte Floating Text'
+  usage: 'Hilfe: /wft help'
+  permission: 'wft.command.use'
+  aliases: ['ft', 'wfloatingtext', 'floatingtext', 'wolfiesft']
+  sender: '&eDieser Command ist nur für bestimmte Spieler gedacht'
+  help: "<===== WFT HILFE =====>{LINE}Command: /wft <arguments: mixed>{LINE}Arguments:{LINE}{LINE} add:{LINE}    Description: Füge ein Hologramm hinzu{LINE}  Hilfe: /wft add (<name: string> [text: string]){LINE}{LINE} remove:{LINE}    Description: Entferne ein Hologramm{LINE}    Hilfe: /wft remove (<name: string>){LINE}{LINE} edit:{LINE}    Description: Ändere Hologramme{LINE}    Usage: /wft edit (<name: string> [newText: string]){LINE}{LINE} tp:{LINE}     Description: Teleportiere ein Hologramm{LINE}    Usage: /wft tp (<name: string>){LINE}{LINE} tphere:{LINE}    Description: Teleportiere ein Hologramm zu dir{LINE}    Usage: /wft tphere (<name: string>){LINE}{LINE} help:{LINE}    Description: Zeigt dir die Hilf Seite an{LINE}    Usage: /wft help{LINE}<==== WFT HILFE ====>"
+
+message:
+  not-found: "Sorry, but the text {NAME} can not be found!"
+  exists: "Entschuldigung das Hologramm {NAME} existiert bereits!"
+  remove: "Das Hologramm {NAME} wurde erfolgreich entfernt!"
+  add: "Das Hologramm {NAME} wurde erfolgreich erstellt"
+  update: "Das Hologramm {NAME} wurde geupdatet"
+
+form:
+  create:
+    title: "Erstelle ein Hologramm"
+    content: "Fülle alles aus um ein Hologramm erstellen zu können"
+    name-title: "Hologramm Name"
+    name-placeholder: "Eindeutige Kennung"
+    text-title: "Hologramm Text"
+    text-placeholder: "Nutze & für Farben"
+
+  edit:
+    title: "Hologramm bearbeiten"
+    content: "Bearbeite das Hologramm {NAME}"
+    text-title: "Hologramm Name"
+    text-placeholder: "Nutze & für Farben"
+
+  list-title: "Wähle ein Hologramm aus"
+
+
