@@ -1,4 +1,4 @@
-# WFT - 1.2.2
+# WFT - 1.3.0
 ### Hello, and welcome to **WFT**. 
 
 ![](logo.png)
@@ -11,12 +11,15 @@ I have added features, because I felt the plugin needed them, and removed featur
 
 ## Features added
 
+- WFT-OLD Migration
 - Multiple language support
 - Optional display identifier
 - More Tags
 - Per-Player Texts
 - Packet Texts over Entity
 - More efficient and pretty code
+
+Migration: This should have been added on 1.0, but texts from WFT-OLD will now be automaticly migrated to WFT format.
 
 Language support: You can now change the language of the plugin to suit your server.
 
