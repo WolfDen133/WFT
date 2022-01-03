@@ -193,7 +193,7 @@ class WFTCommand extends Command implements PluginOwned
                         return;
                     }
 
-                    $floatingText = new FloatingText(new Position($sender->getPosition()->getY(), $sender->getPosition()->getY() + 1.8, $sender->getPosition()->getZ(), $sender->getWorld()), $args[1], implode(" ", array_splice($args, 2)));
+                    $floatingText = new FloatingText(new Position($sender->getPosition()->getX(), $sender->getPosition()->getY() + 1.8, $sender->getPosition()->getZ(), $sender->getWorld()), $args[1], implode(" ", array_splice($args, 2)));
 
                     $api->registerText($floatingText);
                     $api->generateConfig($floatingText);
