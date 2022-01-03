@@ -3,6 +3,7 @@
 namespace WolfDen133\WFT\Utils;
 
 use pocketmine\player\Player;
+use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat;
 use WolfDen133\WFT\Event\TagReplaceEvent;
 use WolfDen133\WFT\WFT;
@@ -51,4 +52,49 @@ class Utils {
         return $ev->getText();
     }
 
+    public static function updateOldTexts () : void
+    {
+        $path = WFT::getInstance()->getDataFolder() . "fts/";
+        $dir = new \RecursiveDirectoryIterator($path);
+        foreach ($dir as $fileInfo) {
+            if ($fileInfo->getFilename() == "." or $fileInfo->getFilename() == "..") continue;
+
+            $config = new Config($path . $fileInfo->getFilename(), Config::YAML);
+
+            if (!$config->exists('visible')) {
+                unlink($path . $fileInfo->getFilename());
+                continue;
+            }
+
+            $data = [];
+
+            $data['name'] = $config->get('name');
+            $data['x'] = (float) $config->get("x");
+            $data['y'] = (float) $config->get("y");
+            $data['z'] = (float) $config->get("z");
+            $data['world'] = (string) $config->get("level");
+            $data['lines'] = (array) $config->get("lines");
+
+            self::regenerateConfig($data);
+            unlink($path . $fileInfo->getFilename());
+
+            WFT::getInstance()->getServer()->getLogger()->info('[WFT] >> Migration: Successfully migrated ' . $data['name'] . " floating text from WFT-OLD format.");
+        }
+
+        rmdir($path);
+    }
+
+    private static function regenerateConfig (array $data) : void
+    {
+        $config = new Config(WFT::getInstance()->getDataFolder() . "texts/" . $data['name'] . ".json", Config::JSON);
+
+        $config->set("name", $data['name'] );
+        $config->set("lines", $data['lines'] );
+        $config->set("world", $data['world'] );
+        $config->set("x", $data['x'] );
+        $config->set("y", $data['y'] );
+        $config->set("z", $data['z'] );
+
+        $config->save();
+    }
 }

@@ -13,6 +13,7 @@ use WolfDen133\WFT\Command\WFTCommand;
 use WolfDen133\WFT\Lang\LanguageManager;
 use WolfDen133\WFT\Task\UpdateTask;
 use WolfDen133\WFT\Texts\FloatingText;
+use WolfDen133\WFT\Utils\Utils;
 
 class WFT extends PluginBase
 {
@@ -46,6 +47,7 @@ class WFT extends PluginBase
 
         $this->getScheduler()->scheduleRepeatingTask(new UpdateTask(), 1);
 
+        Utils::updateOldTexts();
         $this->loadFloatingTexts();
     }
 
