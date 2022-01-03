@@ -55,6 +55,9 @@ class Utils {
     public static function updateOldTexts () : void
     {
         $path = WFT::getInstance()->getDataFolder() . "fts/";
+
+        if (!is_dir($path)) return;
+
         $dir = new \RecursiveDirectoryIterator($path);
         foreach ($dir as $fileInfo) {
             if ($fileInfo->getFilename() == "." or $fileInfo->getFilename() == "..") continue;
