@@ -146,5 +146,5 @@ That's it, the rest is handled by the plugin
 - [**TheFixDev**](https://github.com/TheFixDev) (*Translation - German*) [𝓗𝓪𝓫𝓓𝓲𝓬𝓱𝓢𝓸𝓖𝓮𝓻𝓷#6158]
 - [**kostamax27**](https://github.com/kostamax27) (*Suggestion & Translation - Russian, Ukrainian*) [kostamax27#0160]
 - [**Sergittos**](https://github.com/Sergittos) (*Translation - Spanish*) [Sergittos#0001]
-- [**DragonfireHD**](https://github.com/DragonfireHD) (*Translation - Turkish)
+- [**DragonfireHD**](https://github.com/DragonfireHD) (*Translation - Turkish*)
 
