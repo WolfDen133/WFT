@@ -9,7 +9,7 @@ class LanguageManager
 {
     private WFT $plugin;
     private string $dataPath;
-    public array $internalLanguages = ['en', 'ru', 'ua', 'de', 'sp', 'sk', 'cz', 'tr'];
+    public array $internalLanguages = ['en', 'ru', 'ua', 'de', 'sp', 'sk', 'cz', 'tr', 'id'];
 
     public string $defaultLanguage = 'en';
     public Language $selectedLanguage;
