@@ -100,6 +100,7 @@ Subcommand | Permission | Description | Aliases
 - Spanish (sp)
 - Ukrainian (ua)
 - Turkish (tr)
+- Indonesian (id)
 
 But feel free to add your own!
   
@@ -147,4 +148,5 @@ That's it, the rest is handled by the plugin
 - [**kostamax27**](https://github.com/kostamax27) (*Suggestion & Translation - Russian, Ukrainian*) [kostamax27#0160]
 - [**Sergittos**](https://github.com/Sergittos) (*Translation - Spanish*) [Sergittos#0001]
 - [**DragonfireHD**](https://github.com/DragonfireHD) (*Translation - Turkish*)
+- [**keenanyafiqy**](https://github.com/keenanyafiqy) (*Translation - Indonesian*)
 
