@@ -1,0 +1,41 @@
+# Indonesian language for WFT, translated by @keenanyafiqy
+
+# Name for the language file
+name: "id"
+
+# Main prefix for the plugin messages
+prefix: "&l&8[&r&aWFT&l&8]"
+
+# Main command language options
+command:
+  lable: 'wft'
+  description: 'Kelola teks mengambang Anda'
+  usage: 'Penggunaan: /wft help'
+  permission: 'wft.command.use'
+  aliases: ['ft', 'wfloatingtext', 'floatingtext', 'wolfiesft']
+  sender: '&eMaaf, perintah itu hanya untuk pemain!'
+  help: "<===== BANTUAN WFT =====>{LINE}Perintah: /wft <argumen: campur aduk>{LINE}Argumen:{LINE}{LINE} tambah:{LINE}    Deskripsi: Tambahkan teks mengambang{LINE}  Penggunaan: /wft add (<nama: string> [teks: string]){LINE}{LINE} hapus:{LINE}    Deskripsi: Menghapus teks mengambang{LINE}    Penggunaan: /wft remove (<nama: string>){LINE}{LINE} edit:{LINE}    Deskripsi: Mengubah teks mengambang{LINE}    Penggunaan: /wft edit (<nama: string> [teksBaru: string]){LINE}{LINE} tp:{LINE}     Deskripsi: Teleportasi ke teks mengambang{LINE}    Penggunaan: /wft tp (<nama: string>){LINE}{LINE} tphere:{LINE}    Deskripsi: Menteleportasikan teks mengambang ke Anda{LINE}    Penggunaan: /wft tphere (<nama: string>){LINE}{LINE} help:{LINE}    Deskripsi: Dapatkan bantuan dengan WFT{LINE}    Penggunaan: /wft help{LINE}<==== BANTUAN WFT ====>"
+
+message:
+  not-found: "Maaf, teks {NAME} tidak dapat ditemukan!"
+  exists: "Maaf, tapi teks {NAME} sudah ada!"
+  remove: "Berhasil menghapus teks {NAME}!"
+  add: "Berhasil membuat teks {NAME}!"
+  update: "Berhasil memperbarui teks {NAME}!"
+
+form:
+  create:
+    title: "Buat Teks Mengambang"
+    content: "Isi formulir di bawah ini untuk membuat teks mengambang baru."
+    name-title: "Nama Teks Mengambang"
+    name-placeholder: "Pengenal unik"
+    text-title: "Konten Teks Mengambang"
+    text-placeholder: "Gunakan & untuk warna"
+
+  edit:
+    title: "Edit teks mengambang"
+    content: "Edit konten {NAME} dalam formulir di bawah ini."
+    text-title: "Konten Teks Mengambang"
+    text-placeholder: "Gunakan & untuk warna"
+
+  list-title: "Pilih teks mengambang"
