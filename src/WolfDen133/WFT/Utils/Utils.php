@@ -2,6 +2,9 @@
 
 namespace WolfDen133\WFT\Utils;
 
+use pocketmine\network\mcpe\protocol\AvailableCommandsPacket;
+use pocketmine\network\mcpe\protocol\types\command\CommandEnum;
+use pocketmine\network\mcpe\protocol\types\command\CommandParameter;
 use pocketmine\player\Player;
 use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat;
@@ -9,6 +12,8 @@ use WolfDen133\WFT\Event\TagReplaceEvent;
 use WolfDen133\WFT\WFT;
 
 class Utils {
+
+    private static AvailableCommandsPacket $packet;
 
     public static function getWildCards (Player $player) : array
     {
@@ -99,5 +104,51 @@ class Utils {
         $config->set("z", $data['z'] );
 
         $config->save();
+    }
+
+    public static function setCommandPacketData (AvailableCommandsPacket $packet) : void
+    {
+        self::$packet = $packet;
+
+        if (!isset($packet->commandData['wft'])) return;
+
+        $args = [
+            [
+                CommandParameter::enum('create', new CommandEnum('create', ['create']), CommandParameter::FLAG_FORCE_COLLAPSE_ENUM),
+                CommandParameter::standard('uniqueName', AvailableCommandsPacket::ARG_TYPE_STRING, 0, true),
+                CommandParameter::standard('text', AvailableCommandsPacket::ARG_TYPE_RAWTEXT, 0, true)
+            ],
+            [
+                CommandParameter::enum('remove', new CommandEnum('remove', ['remove']), CommandParameter::FLAG_FORCE_COLLAPSE_ENUM),
+                CommandParameter::enum('uniqueName', new CommandEnum('uniqueName', array_keys(WFT::getInstance()::getAPI()->texts)), 0, true)
+            ],
+            [
+                CommandParameter::enum('edit', new CommandEnum('edit', ['edit']), CommandParameter::FLAG_FORCE_COLLAPSE_ENUM),
+                CommandParameter::enum('uniqueName', new CommandEnum('uniqueName', array_keys(WFT::getInstance()::getAPI()->texts)), 0, true),
+                CommandParameter::standard('text', AvailableCommandsPacket::ARG_TYPE_RAWTEXT, 0, true)
+
+            ],
+            [
+                CommandParameter::enum('tp', new CommandEnum('tp', ['tp']), CommandParameter::FLAG_FORCE_COLLAPSE_ENUM),
+                CommandParameter::enum('uniqueName', new CommandEnum('uniqueName', array_keys(WFT::getInstance()::getAPI()->texts)), 0, true)
+            ],
+            [
+                CommandParameter::enum('tphere', new CommandEnum('tphere', ['tphere']), CommandParameter::FLAG_FORCE_COLLAPSE_ENUM),
+                CommandParameter::enum('uniqueName', new CommandEnum('uniqueName', array_keys(WFT::getInstance()::getAPI()->texts)), 0, true),
+            ],
+            [
+                CommandParameter::enum('list', new CommandEnum('list', ['list']), CommandParameter::FLAG_FORCE_COLLAPSE_ENUM),
+            ],
+            [
+                CommandParameter::enum('help', new CommandEnum('help', ['help']), CommandParameter::FLAG_FORCE_COLLAPSE_ENUM),
+            ]
+        ];
+
+        $packet->commandData['wft']->overloads = $args;
+    }
+
+    public static function sendCommandDataPacket () : void
+    {
+        foreach (WFT::getInstance()->getServer()->getOnlinePlayers() as $player) $player->getNetworkSession()->sendDataPacket(self::$packet);
     }
 }

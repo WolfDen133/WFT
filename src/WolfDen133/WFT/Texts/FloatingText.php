@@ -24,7 +24,7 @@ class FloatingText
     {
         $this->position = $position;
         $this->text = $text;
-        $this->name = $name;
+        $this->name = strtolower($name);
 
         $this->registerSubTexts();
 

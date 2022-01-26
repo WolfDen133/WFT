@@ -218,6 +218,7 @@ class WFTCommand extends Command implements PluginOwned
                     $sender->sendMessage($this->getUsage());
                     return;
             }
+            return;
         }
 
         $sender->sendMessage($this->getUsage());

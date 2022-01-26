@@ -6,7 +6,10 @@ use pocketmine\event\entity\EntityTeleportEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerQuitEvent;
+use pocketmine\event\server\DataPacketSendEvent;
+use pocketmine\network\mcpe\protocol\AvailableCommandsPacket;
 use pocketmine\player\Player;
+use WolfDen133\WFT\Utils\Utils;
 
 class EventListener implements Listener
 {
@@ -30,5 +33,14 @@ class EventListener implements Listener
         $player = $event->getEntity();
 
         WFT::getAPI()->spawnHandle($player, $event->getTo()->getWorld());
+    }
+
+    public function onDataPacketSendEvent (DataPacketSendEvent $event) : void
+    {
+        foreach ($event->getPackets() as $packet) {
+            if (!($packet instanceof AvailableCommandsPacket)) continue;
+
+            Utils::setCommandPacketData($packet);
+        }
     }
 }

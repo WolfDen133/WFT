@@ -6,11 +6,12 @@ use pocketmine\world\World;
 use pocketmine\player\Player;
 use pocketmine\utils\Config;
 use WolfDen133\WFT\Texts\FloatingText;
+use WolfDen133\WFT\Utils\Utils;
 
 class API {
 
     /** @var FloatingText[] */
-    private array $texts = [];
+    public array $texts = [];
 
     /**
      * @param FloatingText $floatingText
@@ -18,9 +19,11 @@ class API {
      */
     public function registerText (FloatingText $floatingText, bool $spawnToAll = true) : void
     {
-        $this->texts[$floatingText->getName()] = $floatingText;
+        $this->texts[strtolower($floatingText->getName())] = $floatingText;
 
         if ($spawnToAll) $this->spawnToAll($floatingText);
+
+        Utils::sendCommandDataPacket();
     }
 
 
@@ -28,7 +31,7 @@ class API {
     {
         $config = new Config(WFT::getInstance()->getDataFolder() . "texts/" . $floatingText->getName() . ".json", Config::JSON);
 
-        $config->set("name", $floatingText->getName());
+        $config->set("name", strtolower($floatingText->getName()));
         $config->set("lines", explode("#", $floatingText->getText()));
         $config->set("world", $floatingText->getPosition()->getWorld()->getFolderName());
         $config->set("x", $floatingText->getPosition()->getX());
@@ -45,6 +48,8 @@ class API {
         self::closeToAll($floatingText);
 
         unset($this->texts[$floatingText->getName()]);
+
+        Utils::sendCommandDataPacket();
     }
 
     public function spawnHandle (Player $player, World $destination = null) : void
