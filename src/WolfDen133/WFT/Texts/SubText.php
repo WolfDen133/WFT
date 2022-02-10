@@ -66,27 +66,17 @@ class SubText
         /** @var DataPacket $pks */
         $pks = [];
 
-        $pk = new PlayerListPacket();
-        $pk->type = PlayerListPacket::TYPE_ADD;
-        $pk->entries = [
-            PlayerListEntry::createAdditionEntry(
-                UUID::fromString($this->uuid),
-                $this->runtime,
-                "",
-                SkinAdapterSingleton::get()->toSkinData(new Skin(
-                    "Standard_Custom",
-                    str_repeat("\x00", 8192)
-                ))
-            )
-        ];
-        $pks[] = $pk;
+        $pks[] = PlayerListPacket::add([PlayerListEntry::createAdditionEntry(
+            UUID::fromString($this->uuid),
+            $this->runtime,
+            "",
+            SkinAdapterSingleton::get()->toSkinData(new Skin(
+                "Standard_Custom",
+                str_repeat("\x00", 8192)
+            ))
+        )]);
 
-        $metadata = [
-            EntityMetadataProperties::FLAGS => new LongMetadataProperty(1 << EntityMetadataFlags::IMMOBILE),
-            EntityMetadataProperties::SCALE => new FloatMetadataProperty(0)
-        ];
-
-        $pk = AddPlayerPacket::create(
+        $pks[] = AddPlayerPacket::create(
             UUID::fromString($this->uuid),
             $this->text,
             $this->runtime,
@@ -98,18 +88,17 @@ class SubText
             0,
             0,
             ItemStackWrapper::legacy(ItemStack::null()),
-            $metadata,
+            [
+                EntityMetadataProperties::FLAGS => new LongMetadataProperty(1 << EntityMetadataFlags::IMMOBILE),
+                EntityMetadataProperties::SCALE => new FloatMetadataProperty(0)
+            ],
             AdventureSettingsPacket::create(0, 0, 0, 0, 0, $this->runtime),
             [],
             "",
             DeviceOS::UNKNOWN
         );
-        $pks[] = $pk;
 
-        $pk = new PlayerListPacket();
-        $pk->type = PlayerListPacket::TYPE_REMOVE;
-        $pk->entries = [PlayerListEntry::createRemovalEntry(UUID::fromString($this->uuid))];
-        $pks[] = $pk;
+        $pks[] = PlayerListPacket::remove([PlayerListEntry::createRemovalEntry(UUID::fromString($this->uuid))]);
 
         foreach ($pks as $pk) $player->getNetworkSession()->sendDataPacket($pk);
 
@@ -117,8 +106,7 @@ class SubText
 
     public function closeTo (Player $player) : void
     {
-        $pk = new RemoveActorPacket();
-        $pk->actorUniqueId = $this->runtime;
+        $pk = RemoveActorPacket::create($this->runtime);
 
         $player->getNetworkSession()->sendDataPacket($pk);
     }

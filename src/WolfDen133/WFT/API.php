@@ -58,9 +58,10 @@ class API {
 
         foreach ($this->texts as $text) {
             self::closeTo($player, $text);
-            if ($destination->getDisplayName() !== $text->getPosition()->getWorld()->getDisplayName()) return;
+            if ($destination->getFolderName() !== $text->getPosition()->getWorld()->getFolderName()) continue;
 
             self::spawnTo($player, $text);
+
         }
     }
 

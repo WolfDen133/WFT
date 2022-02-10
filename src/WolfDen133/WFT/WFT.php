@@ -60,7 +60,7 @@ class WFT extends PluginBase
 
             $config = new Config($this->getDataFolder() . "texts/" . $file->getFilename(), Config::JSON);
 
-            $this->levelCheck($config->get("world"));
+            if (!$this->levelCheck($config->get("world"))) continue;
 
             $position = new Position(
                 $config->get("x"),
@@ -69,14 +69,23 @@ class WFT extends PluginBase
                 $this->getServer()->getWorldManager()->getWorldByName((string)$config->get("world"))
             );
 
+            if (isset(self::getAPI()->texts[strtolower($config->get("name"))])) continue;
+
             $text = new FloatingText($position, $config->get("name"), implode("#", $config->get("lines")));
             self::$api->registerText($text);
         }
     }
 
-    public function levelCheck (string $levelName) : void
+    public function levelCheck (string $levelName) : bool
     {
-        if ($this->getServer()->getWorldManager()->isWorldLoaded($levelName)) $this->getServer()->getWorldManager()->loadWorld($levelName);
+        if (!$this->getServer()->getWorldManager()->isWorldLoaded($levelName)) {
+            $this->getServer()->getWorldManager()->loadWorld($levelName);
+            if ($this->getServer()->getWorldManager()->isWorldLoaded($levelName)) return true;
+
+            return false;
+        }
+
+        return true;
     }
 
     public static function getAPI () : API
