@@ -1,4 +1,4 @@
-# WFT - 1.3.1
+# WFT - 1.3.2
 ### Hello, and welcome to **WFT**. 
 
 ![](logo.png)
