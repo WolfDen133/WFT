@@ -36,12 +36,16 @@ Efficient and pretty code: The code in this plugin is WAY more efficient and cle
 ## Bug Fixes
 ### https://github.com/WolfDen133/WFT/issues/12
   **Status**: Fixed
+  
   **Version**: >=1.3.1
+  
   **Fixed in**: <=1.3.2
 
 ### https://github.com/WolfDen133/WFT/issues/16 
   **Status**: Fixed
+  
   **Version**: >=1.3.2
+  
   **Fixed In*: <=1.3.3
 
 ## Features
