@@ -46,7 +46,7 @@ Efficient and pretty code: The code in this plugin is WAY more efficient and cle
   
   **Version**: >=1.3.2
   
-  **Fixed In*: <=1.3.3
+  **Fixed In**: <=1.3.3
 
 ## Features
 
