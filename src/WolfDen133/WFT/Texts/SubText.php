@@ -88,6 +88,7 @@ class SubText
             0,
             0,
             ItemStackWrapper::legacy(ItemStack::null()),
+            1,
             [
                 EntityMetadataProperties::FLAGS => new LongMetadataProperty(1 << EntityMetadataFlags::IMMOBILE),
                 EntityMetadataProperties::SCALE => new FloatMetadataProperty(0)
