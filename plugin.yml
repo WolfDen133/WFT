@@ -4,8 +4,8 @@ author: WolfDen133
 
 main: WolfDen133\WFT\WFT
 
-version: 1.3.2
-api: 4.0.0
+version: 1.3.3
+api: 4.3.0
 
 permissions:
   wft.command.use:
