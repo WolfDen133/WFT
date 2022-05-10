@@ -211,6 +211,7 @@ class WFTCommand extends Command implements PluginOwned
                     }
 
                     $text->setText(implode(" ", array_splice($args, 2)));
+                    $api->generateConfig($text);
                     $api::respawnToAll($text);
                     $sender->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("update", ["{NAME}" => $args[1]]));
                     break;
@@ -306,6 +307,7 @@ class WFTCommand extends Command implements PluginOwned
             $api = WFT::getAPI();
 
             $floatingText->setText($data[1]);
+            $api->generateConfig($floatingText);
             $api::respawnToAll($floatingText);
             $player->sendMessage(WFT::getLanguageManager()->getLanguage()->getMessage("update", ["{NAME}" => $floatingText->getName()]));
 
