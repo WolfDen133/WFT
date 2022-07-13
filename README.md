@@ -34,6 +34,14 @@ Packets: The old plugin used entities, putting more load on the server, whereas 
 Efficient and pretty code: The code in this plugin is WAY more efficient and clean that the old plugin. The code is also spaced out in multiple files.
 
 ## Bug Fixes
+
+### https://github.com/WolfDen133/WFT/issues/19
+  **Status**: Fixed
+  
+  **Version**: >=1.3.2
+  
+  **Fixed in**: <=1.3.3
+
 ### https://github.com/WolfDen133/WFT/issues/12
   **Status**: Fixed
   
