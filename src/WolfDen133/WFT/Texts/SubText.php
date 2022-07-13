@@ -2,10 +2,7 @@
 
 namespace WolfDen133\WFT\Texts;
 
-use pocketmine\network\mcpe\protocol\AddActorPacket;
-use pocketmine\network\mcpe\protocol\AdventureSettingsPacket;
-use pocketmine\network\mcpe\protocol\RemoveActorPacket;
-use pocketmine\network\mcpe\protocol\RemoveEntityPacket;
+use pocketmine\network\mcpe\protocol\RemoveActorPacket;;
 use pocketmine\network\mcpe\protocol\SetActorDataPacket;
 use pocketmine\network\mcpe\protocol\types\DeviceOS;
 use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataFlags;
@@ -14,6 +11,7 @@ use pocketmine\network\mcpe\protocol\types\entity\FloatMetadataProperty;
 use pocketmine\network\mcpe\protocol\types\entity\LongMetadataProperty;
 use pocketmine\network\mcpe\protocol\types\entity\StringMetadataProperty;
 use pocketmine\network\mcpe\protocol\types\inventory\ItemStack;
+use pocketmine\network\mcpe\protocol\UpdateAbilitiesPacket;
 use Ramsey\Uuid\Uuid as UUID;
 use pocketmine\entity\Skin;
 use pocketmine\world\Position;
@@ -23,7 +21,6 @@ use pocketmine\network\mcpe\protocol\PlayerListPacket;
 use pocketmine\network\mcpe\protocol\types\inventory\ItemStackWrapper;
 use pocketmine\network\mcpe\protocol\types\PlayerListEntry;
 use pocketmine\network\mcpe\convert\SkinAdapterSingleton;
-use WolfDen133\WFT\Event\TagReplaceEvent;
 use WolfDen133\WFT\Utils\Utils;
 use pocketmine\player\Player;
 
