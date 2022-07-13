@@ -81,7 +81,6 @@ class SubText
             $this->text,
             $this->runtime,
             $this->runtime,
-            "",
             $this->position->asVector3(),
             null,
             0,
@@ -93,7 +92,7 @@ class SubText
                 EntityMetadataProperties::FLAGS => new LongMetadataProperty(1 << EntityMetadataFlags::IMMOBILE),
                 EntityMetadataProperties::SCALE => new FloatMetadataProperty(0)
             ],
-            AdventureSettingsPacket::create(0, 0, 0, 0, 0, $this->runtime),
+            UpdateAbilitiesPacket::create(0, 0, $this->runtime, []),
             [],
             "",
             DeviceOS::UNKNOWN
