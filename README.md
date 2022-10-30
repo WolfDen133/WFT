@@ -1,4 +1,4 @@
-# WFT - 1.3.4
+# WFT - 1.3.5
 ### Hello, and welcome to **WFT**. 
 
 ![](logo.png)
@@ -35,12 +35,12 @@ Efficient and pretty code: The code in this plugin is WAY more efficient and cle
 
 ## Bug Fixes
 
-### https://github.com/WolfDen133/WFT/issues/19
+### https://github.com/WolfDen133/WFT/issues/20
   **Status**: Fixed
   
-  **Version**: >=1.3.2
-  
-  **Fixed in**: <=1.3.3
+  **Version**: >=1.3.4
+
+  **Fixed in**: <=1.3.5
 
 ### https://github.com/WolfDen133/WFT/issues/12
   **Status**: Fixed
@@ -73,43 +73,43 @@ Efficient and pretty code: The code in this plugin is WAY more efficient and cle
 
 Master command is ft|wft.master
 
-Subcommand | Permission | Description | Aliases
----------|----------|----------|---------
-`wft`|`wft.command.use`|The master command| `ft`
-`add`| ~ |Add a new ft| `spawn`, `summon`, `new`, `make`, `create`, `c`, `a`
-`remove`| ~ |Remove a existing ft| `break`, `delete`, `bye`, `d`, `r`, 
-`edit`| ~ |Edit an existing ft| `e`, `change`
-`tp`| ~ |Teleport to an ft| `teleportto`, `tpto`, `goto`, `teleport`
-`tphere`| ~ |Teleport a ft to you| `teleporthere`, `movehere`, `bringhere`, `tph`, `move`
-`list`| ~ |See a list of the current fts| `see`, `all` 
-`help`| ~ |So you can get some in-game help| `stuck`, `h`, `?`
+| Subcommand | Permission        | Description                      | Aliases                                                |
+|------------|-------------------|----------------------------------|--------------------------------------------------------|
+| `wft`      | `wft.command.use` | The master command               | `ft`                                                   |
+| `add`      | ~                 | Add a new ft                     | `spawn`, `summon`, `new`, `make`, `create`, `c`, `a`   |
+| `remove`   | ~                 | Remove a existing ft             | `break`, `delete`, `bye`, `d`, `r`,                    |
+| `edit`     | ~                 | Edit an existing ft              | `e`, `change`                                          |
+| `tp`       | ~                 | Teleport to an ft                | `teleportto`, `tpto`, `goto`, `teleport`               |
+| `tphere`   | ~                 | Teleport a ft to you             | `teleporthere`, `movehere`, `bringhere`, `tph`, `move` |
+| `list`     | ~                 | See a list of the current fts    | `see`, `all`                                           |
+| `help`     | ~                 | So you can get some in-game help | `stuck`, `h`, `?`                                      |
 
 ## Tags
 
-  Tag|Description
-  -|-
-  `#`|New line
-  `&`|Use for color codes (same as `§`)
-  `{NAME}`|Players real name
-  `{REAL_NAME}`|Players real name
-  `{DISPLAY_NAME}`|Players display name (often nick plugins use display name)
-  `{PING}`|Players Current Ping
-  `{MAX_PLAYERS}`|Maximum players that can be on the server
-  `{ONLINE_PLAYERS}`|Currently online player count
-  `{X}`|Players X Position
-  `{Y}`|Players Y Position
-  `{Z}`|Players Z Position
-  `{REAL_TPS}`|Current server tps
-  `{TPS}`|Average server tps
-  `{REAL_LOAD}`|Current server load
-  `{LOAD}`|Average server load
-  `{LEVEL_NAME}`|Players current level name
-  `{LEVEL_FOLDER}`|Players current level folder name
-  `{LEVEL_PLAYERS}`|Players current level player count
-  `{CONNECTION_IP}`|The IP address that the player connected from
-  `{SERVER_IP}`|The servers IP address
-  `{TIME}`|Current server time (Customisable in config)
-  `{DATE}`|Current server date (Customisable in config)
+| Tag                | Description                                                |
+|--------------------|------------------------------------------------------------|
+| `#`                | New line                                                   |
+| `&`                | Use for color codes (same as `§`)                          |
+| `{NAME}`           | Players real name                                          |
+| `{REAL_NAME}`      | Players real name                                          |
+| `{DISPLAY_NAME}`   | Players display name (often nick plugins use display name) |
+| `{PING}`           | Players Current Ping                                       |
+| `{MAX_PLAYERS}`    | Maximum players that can be on the server                  |
+| `{ONLINE_PLAYERS}` | Currently online player count                              |
+| `{X}`              | Players X Position                                         |
+| `{Y}`              | Players Y Position                                         |
+| `{Z}`              | Players Z Position                                         |
+| `{REAL_TPS}`       | Current server tps                                         |
+| `{TPS}`            | Average server tps                                         |
+| `{REAL_LOAD}`      | Current server load                                        |
+| `{LOAD}`           | Average server load                                        |
+| `{LEVEL_NAME}`     | Players current level name                                 |
+| `{LEVEL_FOLDER}`   | Players current level folder name                          |
+| `{LEVEL_PLAYERS}`  | Players current level player count                         |
+| `{CONNECTION_IP}`  | The IP address that the player connected from              |
+| `{SERVER_IP}`      | The servers IP address                                     |
+| `{TIME}`           | Current server time (Customisable in config)               |
+| `{DATE}`           | Current server date (Customisable in config)               |
 
 ### Create your own
   See how to create your own [here](https://github.com/WolfDen133/WFT-Tags-Example)

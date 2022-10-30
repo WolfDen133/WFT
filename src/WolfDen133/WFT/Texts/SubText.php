@@ -9,9 +9,11 @@ use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataFlags;
 use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataProperties;
 use pocketmine\network\mcpe\protocol\types\entity\FloatMetadataProperty;
 use pocketmine\network\mcpe\protocol\types\entity\LongMetadataProperty;
+use pocketmine\network\mcpe\protocol\types\entity\PropertySyncData;
 use pocketmine\network\mcpe\protocol\types\entity\StringMetadataProperty;
 use pocketmine\network\mcpe\protocol\types\inventory\ItemStack;
 use pocketmine\network\mcpe\protocol\UpdateAbilitiesPacket;
+use pocketmine\player\GameMode;
 use Ramsey\Uuid\Uuid as UUID;
 use pocketmine\entity\Skin;
 use pocketmine\world\Position;
@@ -47,13 +49,11 @@ class SubText
 
     public function updateTextTo (Player $player) : void
     {
-        $pk = new SetActorDataPacket();
-        $pk->actorRuntimeId = $this->runtime;
-        $pk->tick = 0;
-
-        $pk->metadata = [
-            EntityMetadataProperties::NAMETAG => new StringMetadataProperty(Utils::getFormattedText($this->text, $player))
-        ];
+        $pk = SetActorDataPacket::create($this->runtime,
+            [ EntityMetadataProperties::NAMETAG => new StringMetadataProperty(Utils::getFormattedText($this->text, $player)) ],
+            new PropertySyncData([], []),
+            0
+        );
 
         $player->getNetworkSession()->sendDataPacket($pk);
     }
@@ -89,6 +89,7 @@ class SubText
                 EntityMetadataProperties::FLAGS => new LongMetadataProperty(1 << EntityMetadataFlags::IMMOBILE),
                 EntityMetadataProperties::SCALE => new FloatMetadataProperty(0)
             ],
+            new PropertySyncData([], []),
             UpdateAbilitiesPacket::create(0, 0, $this->runtime, []),
             [],
             "",
