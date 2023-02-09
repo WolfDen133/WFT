@@ -4,6 +4,9 @@ namespace WolfDen133\WFT\Texts;
 
 use pocketmine\network\mcpe\protocol\RemoveActorPacket;;
 use pocketmine\network\mcpe\protocol\SetActorDataPacket;
+use pocketmine\network\mcpe\protocol\types\AbilitiesData;
+use pocketmine\network\mcpe\protocol\types\AbilitiesLayer;
+use pocketmine\network\mcpe\protocol\types\command\CommandPermissions;
 use pocketmine\network\mcpe\protocol\types\DeviceOS;
 use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataFlags;
 use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataProperties;
@@ -12,6 +15,7 @@ use pocketmine\network\mcpe\protocol\types\entity\LongMetadataProperty;
 use pocketmine\network\mcpe\protocol\types\entity\PropertySyncData;
 use pocketmine\network\mcpe\protocol\types\entity\StringMetadataProperty;
 use pocketmine\network\mcpe\protocol\types\inventory\ItemStack;
+use pocketmine\network\mcpe\protocol\types\PlayerPermissions;
 use pocketmine\network\mcpe\protocol\UpdateAbilitiesPacket;
 use pocketmine\player\GameMode;
 use Ramsey\Uuid\Uuid as UUID;
@@ -90,7 +94,14 @@ class SubText
                 EntityMetadataProperties::SCALE => new FloatMetadataProperty(0)
             ],
             new PropertySyncData([], []),
-            UpdateAbilitiesPacket::create(0, 0, $this->runtime, []),
+            UpdateAbilitiesPacket::create(new AbilitiesData(CommandPermissions::NORMAL, PlayerPermissions::CUSTOM, $this->runtime, [
+                new AbilitiesLayer(
+                    AbilitiesLayer::LAYER_BASE,
+                    array_fill(0, AbilitiesLayer::NUMBER_OF_ABILITIES, false),
+                    0.0,
+                    0.0
+                )
+            ])),
             [],
             "",
             DeviceOS::UNKNOWN
