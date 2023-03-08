@@ -17,23 +17,23 @@ class EventListener implements Listener
 
     public function onPlayerJoinEvent (PlayerJoinEvent $event) : void
     {
-        WFT::getAPI()->spawnHandle($event->getPlayer());
+        WFT::getInstance()->getTextManager()->spawnHandle($event->getPlayer());
     }
 
     public function onPlayerQuitEvent (PlayerQuitEvent $event) : void
     {
-        foreach (WFT::getAPI()->getTexts() as $text) WFT::getAPI()::closeTo($event->getPlayer(), $text);
+        foreach (WFT::getInstance()->getTextManager()->getTexts() as $id => $text) WFT::getInstance()->getTextManager()->getActions()->closeTo($event->getPlayer(), $id);
     }
 
     public function onPlayerLevelChangeEvent (EntityTeleportEvent $event) : void
     {
-        if ($event->getFrom()->getWorld()->getDisplayName() == $event->getTo()->getWorld()->getDisplayName()) return;
         if (!($event->getEntity() instanceof Player)) return;
+        if ($event->getFrom()->getWorld()->getId() == $event->getTo()->getWorld()->getId()) return;
 
         /** @var Player $player */
         $player = $event->getEntity();
 
-        WFT::getAPI()->spawnHandle($player, $event->getTo()->getWorld());
+        WFT::getInstance()->getTextManager()->spawnHandle($player, $event->getTo()->getWorld());
     }
 
     public function onDataPacketSendEvent (DataPacketSendEvent $event) : void
@@ -47,6 +47,6 @@ class EventListener implements Listener
 
     public function onWorldLoadEvent (WorldLoadEvent $event) : void
     {
-        WFT::getInstance()->loadFloatingTexts();
+        WFT::getInstance()->getTextManager()->loadFloatingTexts();
     }
 }

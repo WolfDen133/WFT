@@ -1,4 +1,4 @@
-# WFT - 1.3.6
+# WFT - 1.4.0
 ### Hello, and welcome to **WFT**. 
 
 ![](logo.png)
@@ -134,39 +134,58 @@ Master command is ft|wft.master
 
 But feel free to add your own!
   
-## API
+## NEW API
+
+> ### Notes:
+> - Docs are presented: 
+> `$varableName  // [varableType] explanation`
 
 Example:
 
 Import the classes
 ```php
-
 use WolfDen133\WFT\WFT;
-use WolfDen133\WFT\Texts\FloatingText;
-
 ```
 Creating the text
 ```php
 // Creation and registration
-$floatingText = new FloatingText(new Position($x, $y, $z, $level), $name, $text);
-WFT::getAPI()->registerText($floatingText);
+$position = new Position($x, $y, $z, $world);
 
-// Spawning
-WFT::getAPI()::spawnTo($player, $floatingText);
+WFT::getInstance()->getTextManager()->registerText(
+    $identifier,    // [STRING] Unique identifier that is used in the api to manipulate the text in future
+    $text,          // [STRING] In raw, the text that you want for the text's content
+    $position,      // [OBJECT: POSITION] Where the text is placed in the server
+    ($spawnToAll)   // [BOOL] (optional) Whether the text is spawned to the server on creation
+    ($saveText)     // [BOOL] (optional) Whether WFT creates a config file for the text and reloads it when the server is restarted (set to false if you are going to be registering texts on enable)
+);  // Returns the created text
+
+// Spawning (unnecessary if $spawnToAll is true)
+// (identifier is the one used to register the ft)
+WFT::getInstance()->getTextManager()->getActions()->spawnTo($player, $identifier);
 // or
-WFT::getAPI()::spawnToAll($floatingText);
+WFT::getInstance()->getTextManager()->getActions()->spawnTo($identifier);
 ```
 
-Changing the ft's text
+Getting and changing the text's content
 ```php
+// Getting the ft
+$floatingText = WFT::getInstance()->getTextManager()->getTextById($identifier);
+
 // Changing the text
 $floatingText->setText($text);
 
 // Pushing the update
-WFT::getAPI()::respawnTo($player, $floatingText);
+WFT::getInstance()->getTextManager()->getActions()->respawnTo($player, $floatingText);
 // or 
-WFT::getAPI()::respawnToAll($floatingText);
+WFT::getInstance()->getTextManager()->getActions()->respawnToAll($floatingText);
 ```
+
+Removing the text
+```php
+// Remove the text
+WFT::getInstance()->getTextManager()->removeText($identifier);
+```
+
 
 That's it, the rest is handled by the plugin
 

@@ -5,92 +5,68 @@ declare(strict_types=1);
 namespace WolfDen133\WFT;
 
 use pocketmine\plugin\PluginBase;
-use pocketmine\utils\Config;
-use pocketmine\world\Position;
-use RecursiveDirectoryIterator;
-
+use pocketmine\Server;
 use WolfDen133\WFT\Command\WFTCommand;
+use WolfDen133\WFT\Exception\WFTException;
+use WolfDen133\WFT\Form\FormManager;
 use WolfDen133\WFT\Lang\LanguageManager;
 use WolfDen133\WFT\Task\UpdateTask;
-use WolfDen133\WFT\Texts\FloatingText;
+use WolfDen133\WFT\Utils\Time;
 use WolfDen133\WFT\Utils\Utils;
+use WolfDen133\WFT\API\TextManager;
 
 class WFT extends PluginBase
 {
+    private const CONFIG_VERSION = 1;
 
     public static bool $display_identifier = false;
     private static self $instance;
 
-    private static API $api;
-    private static LanguageManager $languageManager;
+    private TextManager $textManager;
+    private LanguageManager $languageManager;
+    private FormManager $formManager;
 
     public function onLoad() : void
     {
         $this->saveDefaultConfig();
+
+        if ($this->getConfig()->get("config-version") !== self::CONFIG_VERSION) throw new WFTException("Invalid config version detected: Please delete current config, and restart the server");
+
+        self::$instance = $this;
+
+        self::$display_identifier = $this->getConfig()->get("display-identifier");
+
+        $this->textManager = new TextManager();
+        $this->languageManager = new LanguageManager($this);
+        $this->formManager = new FormManager();
+
+
+        new Time($this->getConfig()->get("timezone"), $this->getConfig()->get("date-format"), $this->getConfig()->get("time-format"));
+
+        Utils::updateOldTexts();
     }
 
     public function onEnable() : void
     {
-        self::$instance = $this;
-
-        $timezone = (string)$this->getConfig()->get("timezone");
-        date_default_timezone_set($timezone);
-
-        if (!is_dir($this->getDataFolder() . "texts/")) mkdir($this->getDataFolder() . "texts/");
-
-        self::$display_identifier = $this->getConfig()->get("display-identifier");
-        self::$api = new API();
-        self::$languageManager = new LanguageManager($this);
-
         $this->getServer()->getPluginManager()->registerEvents(new EventListener(), $this);
         $this->getServer()->getCommandMap()->register("WFT", new WFTCommand("wft"));
 
         $this->getScheduler()->scheduleRepeatingTask(new UpdateTask(), 1);
-
-        Utils::updateOldTexts();
-        $this->loadFloatingTexts();
     }
 
-    public function loadFloatingTexts () : void
+    public function getTextManager () : TextManager
     {
-        $dir = new RecursiveDirectoryIterator($this->getDataFolder() . "texts/");
-
-        foreach ($dir as $file) {
-            if ($file->getFilename() == "." or $file->getFilename() == "..") continue;
-
-            $config = new Config($this->getDataFolder() . "texts/" . $file->getFilename(), Config::JSON);
-
-            if (!$this->levelCheck($config->get("world"))) continue;
-
-            $position = new Position(
-                $config->get("x"),
-                $config->get("y"),
-                $config->get("z"),
-                $this->getServer()->getWorldManager()->getWorldByName((string)$config->get("world"))
-            );
-
-            if (isset(self::getAPI()->texts[strtolower($config->get("name"))])) continue;
-
-            $text = new FloatingText($position, $config->get("name"), implode("#", $config->get("lines")));
-            self::$api->registerText($text);
-        }
+        return $this->textManager;
     }
 
-    public function levelCheck (string $levelName) : bool
+    public function getLanguageManager () : LanguageManager
     {
-        if (!$this->getServer()->getWorldManager()->isWorldLoaded($levelName)) {
-            $this->getServer()->getWorldManager()->loadWorld($levelName);
-            if ($this->getServer()->getWorldManager()->isWorldLoaded($levelName)) return true;
-
-            return false;
-        }
-
-        return true;
+        return $this->languageManager;
     }
 
-    public static function getAPI () : API
+    public function getFormManager () : FormManager
     {
-        return self::$api;
+        return $this->formManager;
     }
 
     public static function getInstance () : self
@@ -98,8 +74,15 @@ class WFT extends PluginBase
         return self::$instance;
     }
 
-    public static function getLanguageManager () : LanguageManager
+    /**
+     * Check to see whether the plugin is loaded, called when accessing instance (for external plugin use).
+     * If the plugin is not loaded then it will throw: access before utilisation error.
+     */
+    private function isEnabledCheck () : void
     {
-        return self::$languageManager;
+        if ($this->isEnabled()) return;
+
+        Server::getInstance()->getPluginManager()->enablePlugin($this);
     }
+
 }

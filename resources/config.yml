@@ -1,11 +1,15 @@
 # WFT, MADE BY WOLFDEN133
 
+# DO NOT TOUCH
+# FOR PLUGIN INTERNAL ONLY
+config-version: 1
+
 # Master language for the plugin
 # All languages in the "lang/" dir will work
 language: "en"
 
 # Timezone for dates and times
-timezone: "UTC"
+timezone: "UCT"
 
 # Time format for time tag
 # Get help and formatting at https://www.php.net/manual/en/function.date.php

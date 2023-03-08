@@ -20,14 +20,13 @@ class FloatingText
     public array $subtexts = [];
     public SubText $identifier;
 
-    public function __construct(Position $position, string $name, string $text)
+    public function __construct(string $identifier, string $text, Position $position)
     {
-        $this->position = $position;
+        $this->name = $identifier;
         $this->text = $text;
-        $this->name = strtolower($name);
+        $this->position = $position;
 
         $this->registerSubTexts();
-
     }
 
     public function registerSubTexts () : void
@@ -35,8 +34,9 @@ class FloatingText
         $lines = explode("#", $this->text);
         $y = $this->getPosition()->getY();
 
-        foreach ($this->subtexts as $subText) {
-            foreach (WFT::getInstance()->getServer()->getOnlinePlayers() as $player) $subText->closeTo($player);
+        foreach (WFT::getInstance()->getServer()->getOnlinePlayers() as $player) {
+            foreach ($this->subtexts as $subText) $subText->closeTo($player);
+            if (isset($this->identifier)) $this->identifier->closeTo($player);
         }
 
         $this->subtexts = [];
@@ -78,6 +78,8 @@ class FloatingText
     public function setText (string $raw) : void
     {
         $this->text = $raw;
+
+        $this->registerSubTexts();
     }
 
     /**
