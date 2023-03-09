@@ -77,7 +77,7 @@ class Utils
 
             $data = [];
 
-            $data['name'] = $config->get('name');
+            $data['name'] = Utils::steriliseIdentifier($config->get('name'));
             $data['x'] = (float)$config->get("x");
             $data['y'] = (float)$config->get("y");
             $data['z'] = (float)$config->get("z");
@@ -110,7 +110,7 @@ class Utils
     public static function steriliseIdentifier(string $id): string
     {
         $id = str_replace(" ", "_", strtolower($id));
-        $id = preg_replace('/[^A-Za-z0-9\\-]/', '', $id);
+        $id = preg_replace('/[^A-Za-z0-9_]/', '', $id);
         return preg_replace('/_+/', "_", $id);
     }
 

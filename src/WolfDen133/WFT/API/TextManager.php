@@ -38,12 +38,9 @@ class TextManager {
         $dir = scandir(self::$textDir);
 
         foreach ($dir as $file) {
-            WFT::getInstance()->getLogger()->info("Trying to load $file");
             if (in_array($file, [".", ".."])) continue;
 
             $config = new Config(self::$textDir . $file, Config::JSON);
-
-            WFT::getInstance()->getLogger()->info("Reading data for $file");
 
             if (isset($this->texts[strtolower($config->get("name"))])) continue;
 
@@ -56,12 +53,7 @@ class TextManager {
                 WFT::getInstance()->getServer()->getWorldManager()->getWorldByName((string)$config->get("world"))
             );
 
-            WFT::getInstance()->getLogger()->info("Checked and analised $file");
-
-
-            $this->registerText($config->get("name"), implode("#", $config->get("lines")), $position);
-
-            WFT::getInstance()->getLogger()->info("Created $file");
+            $this->registerText(Utils::steriliseIdentifier($config->get("name")), implode("#", $config->get("lines")), $position);
 
         }
     }
@@ -115,7 +107,7 @@ class TextManager {
     {
         $config = new Config(WFT::getInstance()->getDataFolder() . "Texts/" . $floatingText->getName() . ".json", Config::JSON);
 
-        $config->set("name", strtolower($floatingText->getName()));
+        $config->set("name", Utils::steriliseIdentifier($floatingText->getName()));
         $config->set("lines", explode("#", $floatingText->getText()));
         $config->set("world", $floatingText->getPosition()->getWorld()->getFolderName());
         $config->set("x", $floatingText->getPosition()->getX());
@@ -171,7 +163,7 @@ class TextManager {
      */
     public function getTextById (string $id) : ?FloatingText
     {
-        return $this->texts[$id] ?? null;
+        return $this->texts[Utils::steriliseIdentifier($id)] ?? null;
     }
 
     /**

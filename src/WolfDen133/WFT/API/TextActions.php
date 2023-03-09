@@ -5,6 +5,7 @@ namespace WolfDen133\WFT\API;
 use pocketmine\player\Player;
 use WolfDen133\WFT\Exception\WFTException;
 use WolfDen133\WFT\Texts\FloatingText;
+use WolfDen133\WFT\Utils\Utils;
 use WolfDen133\WFT\WFT;
 
 class TextActions
