@@ -127,7 +127,7 @@ class TextManager {
     {
         $id = Utils::steriliseIdentifier($identifier);
 
-        unlink(WFT::getInstance()->getDataFolder() . "Texts/" . $id . ".json");
+        if (is_file(self::$textDir . + $id . ".json")) unlink(self::$textDir . $id . ".json");
 
         $this->getActions()->closeToAll($id);
 
