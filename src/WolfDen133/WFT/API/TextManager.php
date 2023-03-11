@@ -105,7 +105,7 @@ class TextManager {
 
     public function saveText (FloatingText $floatingText) : void
     {
-        $config = new Config(WFT::getInstance()->getDataFolder() . "Texts/" . $floatingText->getName() . ".json", Config::JSON);
+        $config = new Config(self::$textDir . $floatingText->getName() . ".json", Config::JSON);
 
         $config->set("name", Utils::steriliseIdentifier($floatingText->getName()));
         $config->set("lines", explode("#", $floatingText->getText()));
