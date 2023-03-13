@@ -49,7 +49,7 @@ class ListForm extends Form
                 break;
             case self::MODE_TP:
 
-                WFT::getInstance()->levelCheck($text->getPosition()->getWorld()->getDisplayName());
+                WFT::getInstance()->getTextManager()->levelCheck($text->getPosition()->getWorld()->getDisplayName());
                 $player->teleport($text->getPosition());
 
                 break;

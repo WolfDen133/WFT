@@ -53,6 +53,7 @@ class TextActions
      *
      * @param Player $player
      * @param string $id
+     * @throws WFTException
      */
     public function spawnTo (Player $player, string $id) : void
     {
@@ -64,6 +65,7 @@ class TextActions
      *
      * @param Player $player
      * @param string $id
+     * @throws WFTException
      */
     public function closeTo (Player $player, string $id) : void
     {
@@ -75,6 +77,7 @@ class TextActions
      *
      * @param Player $player
      * @param string $id
+     * @throws WFTException
      */
     public function respawnTo (Player $player, string $id) : void
     {

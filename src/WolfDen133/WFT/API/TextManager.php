@@ -127,7 +127,7 @@ class TextManager {
     {
         $id = Utils::steriliseIdentifier($identifier);
 
-        if (is_file(self::$textDir . + $id . ".json")) unlink(self::$textDir . $id . ".json");
+        if (is_file(self::$textDir . $id . ".json")) unlink(self::$textDir . $id . ".json");
 
         $this->getActions()->closeToAll($id);
 
@@ -181,7 +181,4 @@ class TextManager {
     {
         return $this->actions;
     }
-
-
-
 }

@@ -36,14 +36,15 @@ class WFT extends PluginBase
 
         self::$display_identifier = $this->getConfig()->get("display-identifier");
 
+        Utils::updateOldTexts();
+
         $this->textManager = new TextManager();
         $this->languageManager = new LanguageManager($this);
         $this->formManager = new FormManager();
 
-
         new Time($this->getConfig()->get("timezone"), $this->getConfig()->get("date-format"), $this->getConfig()->get("time-format"));
 
-        Utils::updateOldTexts();
+
     }
 
     public function onEnable() : void
@@ -72,17 +73,6 @@ class WFT extends PluginBase
     public static function getInstance () : self
     {
         return self::$instance;
-    }
-
-    /**
-     * Check to see whether the plugin is loaded, called when accessing instance (for external plugin use).
-     * If the plugin is not loaded then it will throw: access before utilisation error.
-     */
-    private function isEnabledCheck () : void
-    {
-        if ($this->isEnabled()) return;
-
-        Server::getInstance()->getPluginManager()->enablePlugin($this);
     }
 
 }
