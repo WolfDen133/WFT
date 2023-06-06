@@ -3,7 +3,7 @@
 
 ![](logo.png)
 
-### NOW IN API 4.0
+### NOW IN API 5.0
 
 This is the official recode of my old plugin WFT, witch had some issues. Overall I was not happy with the result, the code was messy, it was all in one file, there was useless and in-efficient code, with a hard api to use, so decided to recode it.
 
