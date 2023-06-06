@@ -2,7 +2,7 @@
 
 namespace WolfDen133\WFT\Form\Types;
 
-use WolfDen133\WFT\lib\FormAPI\SimpleForm;
+use Vecnavium\FormsUI\SimpleForm;
 use pocketmine\player\Player;
 use pocketmine\utils\TextFormat;
 use pocketmine\world\Position;
