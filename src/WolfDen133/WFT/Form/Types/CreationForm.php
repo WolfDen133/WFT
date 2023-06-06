@@ -6,7 +6,7 @@ use pocketmine\player\Player;
 use pocketmine\world\Position;
 use WolfDen133\WFT\Texts\FloatingText;
 use WolfDen133\WFT\WFT;
-use WolfDen133\WFT\lib\FormAPI\CustomForm;
+use Vecnavium\FormsUI\CustomForm;
 use WolfDen133\WFT\Form\Form;
 
 class CreationForm extends Form
