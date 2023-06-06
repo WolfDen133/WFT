@@ -43,8 +43,6 @@ class WFT extends PluginBase
         $this->formManager = new FormManager();
 
         new Time($this->getConfig()->get("timezone"), $this->getConfig()->get("date-format"), $this->getConfig()->get("time-format"));
-
-
     }
 
     public function onEnable() : void

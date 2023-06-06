@@ -107,12 +107,14 @@ class TextManager {
     {
         $config = new Config(self::$textDir . $floatingText->getName() . ".json", Config::JSON);
 
-        $config->set("name", Utils::steriliseIdentifier($floatingText->getName()));
-        $config->set("lines", explode("#", $floatingText->getText()));
-        $config->set("world", $floatingText->getPosition()->getWorld()->getFolderName());
-        $config->set("x", $floatingText->getPosition()->getX());
-        $config->set("y", $floatingText->getPosition()->getY());
-        $config->set("z", $floatingText->getPosition()->getZ());
+        $config->setAll([
+            "name" => Utils::steriliseIdentifier($floatingText->getName()),
+            "lines" => explode("#", $floatingText->getText()),
+            "world" => $floatingText->getPosition()->getWorld()->getFolderName(),
+            "x" => $floatingText->getPosition()->getX(),
+            "y" => $floatingText->getPosition()->getY(),
+            "z" => $floatingText->getPosition()->getZ(),
+        ]);
 
         $config->save();
     }

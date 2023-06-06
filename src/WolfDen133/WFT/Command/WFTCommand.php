@@ -7,21 +7,15 @@ use pocketmine\command\Command;
 use pocketmine\plugin\Plugin;
 use pocketmine\plugin\PluginOwned;
 
-use WolfDen133\WFT\Form\CustomForm;
-use WolfDen133\WFT\Form\SimpleForm;
-
 use pocketmine\command\CommandSender;
 
 use pocketmine\world\Position;
 
 use pocketmine\player\Player;
 
-use pocketmine\utils\TextFormat;
-
 use WolfDen133\WFT\Form\Types\CreationForm;
 use WolfDen133\WFT\Form\Types\ListForm;
 use WolfDen133\WFT\WFT;
-use WolfDen133\WFT\Texts\FloatingText;
 
 class WFTCommand extends Command implements PluginOwned
 {
