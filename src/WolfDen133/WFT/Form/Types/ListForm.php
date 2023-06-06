@@ -2,7 +2,7 @@
 
 namespace WolfDen133\WFT\Form\Types;
 
-use jojoe77777\FormAPI\SimpleForm;
+use WolfDen133\WFT\lib\FormAPI\SimpleForm;
 use pocketmine\player\Player;
 use pocketmine\utils\TextFormat;
 use pocketmine\world\Position;

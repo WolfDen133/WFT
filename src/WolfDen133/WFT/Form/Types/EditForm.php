@@ -2,9 +2,8 @@
 
 namespace WolfDen133\WFT\Form\Types;
 
-use jojoe77777\FormAPI\CustomForm;
+use WolfDen133\WFT\lib\FormAPI\CustomForm;
 use pocketmine\player\Player;
-use pocketmine\world\Position;
 use WolfDen133\WFT\Texts\FloatingText;
 use WolfDen133\WFT\WFT;
 use WolfDen133\WFT\Form\Form;
