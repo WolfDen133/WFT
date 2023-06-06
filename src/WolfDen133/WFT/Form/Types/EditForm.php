@@ -2,7 +2,7 @@
 
 namespace WolfDen133\WFT\Form\Types;
 
-use WolfDen133\WFT\lib\FormAPI\CustomForm;
+use Vecnavium\FormsUI\CustomForm;
 use pocketmine\player\Player;
 use WolfDen133\WFT\Texts\FloatingText;
 use WolfDen133\WFT\WFT;
