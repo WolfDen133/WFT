@@ -2,6 +2,7 @@
 
 namespace WolfDen133\WFT\Texts;
 
+use pocketmine\network\mcpe\convert\TypeConverter;
 use pocketmine\network\mcpe\protocol\RemoveActorPacket;;
 use pocketmine\network\mcpe\protocol\SetActorDataPacket;
 use pocketmine\network\mcpe\protocol\types\AbilitiesData;
@@ -17,7 +18,6 @@ use pocketmine\network\mcpe\protocol\types\entity\StringMetadataProperty;
 use pocketmine\network\mcpe\protocol\types\inventory\ItemStack;
 use pocketmine\network\mcpe\protocol\types\PlayerPermissions;
 use pocketmine\network\mcpe\protocol\UpdateAbilitiesPacket;
-use pocketmine\player\GameMode;
 use Ramsey\Uuid\Uuid as UUID;
 use pocketmine\entity\Skin;
 use pocketmine\world\Position;
@@ -26,7 +26,6 @@ use pocketmine\network\mcpe\protocol\DataPacket;
 use pocketmine\network\mcpe\protocol\PlayerListPacket;
 use pocketmine\network\mcpe\protocol\types\inventory\ItemStackWrapper;
 use pocketmine\network\mcpe\protocol\types\PlayerListEntry;
-use pocketmine\network\mcpe\convert\SkinAdapterSingleton;
 use WolfDen133\WFT\Utils\Utils;
 use pocketmine\player\Player;
 
@@ -71,7 +70,7 @@ class SubText
             UUID::fromString($this->uuid),
             $this->runtime,
             "",
-            SkinAdapterSingleton::get()->toSkinData(new Skin(
+            (new TypeConverter())->getSkinAdapter()->toSkinData(new Skin(
                 "Standard_Custom",
                 str_repeat("\x00", 8192)
             ))
