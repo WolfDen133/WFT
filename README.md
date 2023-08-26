@@ -1,4 +1,4 @@
-# WFT - 1.5.0
+# WFT - 1.5.1
 ### Hello, and welcome to **WFT**. 
 
 ![](logo.png)
@@ -143,8 +143,9 @@ But feel free to add your own!
 Example:
 
 Import the classes
+
 ```php
-use WolfDen133\WFT\WFT;
+
 ```
 Creating the text
 ```php

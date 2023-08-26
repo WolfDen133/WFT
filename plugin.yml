@@ -1,15 +1,15 @@
 ---
 name: WFT
 author: WolfDen133
+description: Add Custom Floating Texts to your PocketMine-MP server
 
 main: WolfDen133\WFT\WFT
 
-version: 1.5.0
-api: 5.0.0
+version: 1.5.1
+api: 5.4.3
 
 permissions:
   wft.command.use:
     default: op
-    description: Allows the use of the wft command
-
+    description: Allows the use of /wft
 ...

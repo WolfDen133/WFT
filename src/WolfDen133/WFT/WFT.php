@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace WolfDen133\WFT;
 
+use CortexPE\Commando\PacketHooker;
+use pocketmine\permission\Permission;
+use pocketmine\permission\PermissionManager;
 use pocketmine\plugin\PluginBase;
-use pocketmine\Server;
+use WolfDen133\WFT\API\TextManager;
 use WolfDen133\WFT\Command\WFTCommand;
 use WolfDen133\WFT\Exception\WFTException;
 use WolfDen133\WFT\Form\FormManager;
@@ -13,7 +16,6 @@ use WolfDen133\WFT\Lang\LanguageManager;
 use WolfDen133\WFT\Task\UpdateTask;
 use WolfDen133\WFT\Utils\Time;
 use WolfDen133\WFT\Utils\Utils;
-use WolfDen133\WFT\API\TextManager;
 
 class WFT extends PluginBase
 {
@@ -38,6 +40,8 @@ class WFT extends PluginBase
 
         Utils::updateOldTexts();
 
+
+
         $this->textManager = new TextManager();
         $this->languageManager = new LanguageManager($this);
         $this->formManager = new FormManager();
@@ -47,6 +51,8 @@ class WFT extends PluginBase
 
     public function onEnable() : void
     {
+        $this->textManager->loadFloatingTexts();
+
         $this->getServer()->getPluginManager()->registerEvents(new EventListener(), $this);
         $this->getServer()->getCommandMap()->register("WFT", new WFTCommand("wft"));
 

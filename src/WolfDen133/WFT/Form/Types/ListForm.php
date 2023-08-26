@@ -2,13 +2,15 @@
 
 namespace WolfDen133\WFT\Form\Types;
 
-use Vecnavium\FormsUI\SimpleForm;
+use dktapps\pmforms\MenuForm;
+use dktapps\pmforms\MenuOption;
 use pocketmine\player\Player;
 use pocketmine\utils\TextFormat;
 use pocketmine\world\Position;
+use WolfDen133\WFT\Form\Form;
+use dktapps\pmforms\CustomFormResponse;
 use WolfDen133\WFT\Texts\FloatingText;
 use WolfDen133\WFT\WFT;
-use WolfDen133\WFT\Form\Form;
 
 class ListForm extends Form
 {
@@ -28,20 +30,18 @@ class ListForm extends Form
 
     public function sendTo(Player $player, FloatingText $floatingText = null): void
     {
-        $form = new SimpleForm(function (Player $player, string $data = null) : void { if (is_null($data)) { return; } $this->handleResponse($player, $data); });
-
-        $form->setTitle(WFT::getInstance()->getLanguageManager()->getLanguage()->getFormText("list-title"));
-
         foreach (WFT::getInstance()->getTextManager()->getTexts() as $text) {
-            $form->addButton(TextFormat::DARK_GRAY . $text->getName() . "\n" . TextFormat::GRAY . $text->getText(), -1, "", $text->getName());
+            $buttons[] = new MenuOption(TextFormat::DARK_GRAY . $text->getName() . "\n" . TextFormat::GRAY . $text->getText());
         }
+
+        $form = new MenuForm(WFT::getInstance()->getLanguageManager()->getLanguage()->getFormText("list-title"), "", $buttons, function (Player $player, int $data = null) : void { if (is_null($data)) { return; } $this->handleResponse($player, $data); } );
 
         $player->sendForm($form);
     }
 
-    public function handleResponse(Player $player, array|string|int $data): void
+    public function handleResponse(Player $player, CustomFormResponse|int $data): void
     {
-        $text = WFT::getInstance()->getTextManager()->getTextById($data);
+        $text = WFT::getInstance()->getTextManager()->getTexts()[$data];
 
         switch ($this->mode) {
             case self::MODE_EDIT:

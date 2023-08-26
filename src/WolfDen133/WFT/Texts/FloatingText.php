@@ -3,9 +3,9 @@ namespace WolfDen133\WFT\Texts;
 
 use pocketmine\entity\Entity;
 use pocketmine\permission\DefaultPermissions;
-use pocketmine\world\Position;
 use pocketmine\player\Player;
 use pocketmine\utils\TextFormat;
+use pocketmine\world\Position;
 use Ramsey\Uuid\Uuid as UUID;
 use WolfDen133\WFT\WFT;
 

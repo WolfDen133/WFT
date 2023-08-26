@@ -53,11 +53,11 @@ class WFTCommand extends Command implements PluginOwned
                     foreach (WFT::getInstance()->getTextManager()->getTexts() as $text) {
 
                         $sender->sendMessage("==============================\n" .
-                        " Name: " . $text->getName() . "\n" .
-                        " Level: " . $text->getPosition()->getWorld()->getDisplayName() . "\n" .
-                        " Position: " . $text->getPosition()->getX() . ", " . $text->getPosition()->getY() . ", " . $text->getPosition()->getZ() . "\n" .
-                        " Lines: " . "\n(\n    " . implode("\n    ", explode("#", $text->getText())) . "\n)\n" .
-                        "==============================\n");
+                            " Name: " . $text->getName() . "\n" .
+                            " Level: " . $text->getPosition()->getWorld()->getDisplayName() . "\n" .
+                            " Position: " . $text->getPosition()->getX() . ", " . $text->getPosition()->getY() . ", " . $text->getPosition()->getZ() . "\n" .
+                            " Lines: " . "\n(\n    " . implode("\n    ", explode("#", $text->getText())) . "\n)\n" .
+                            "==============================\n");
 
                     }
                     $sender->sendMessage("/\\=====FLOATING-TEXT LIST=====/\\");
@@ -85,9 +85,9 @@ class WFTCommand extends Command implements PluginOwned
                 case "tpto":
                 case "goto":
                 case "teleport":
-                WFT::getInstance()->getFormManager()->sendFormTo($sender, ListForm::FORM_ID, ListForm::MODE_TP);
+                    WFT::getInstance()->getFormManager()->sendFormTo($sender, ListForm::FORM_ID, ListForm::MODE_TP);
 
-                break;
+                    break;
 
                 case "tphere":
                 case "teleporthere":
@@ -95,16 +95,16 @@ class WFTCommand extends Command implements PluginOwned
                 case "bringhere":
                 case "tph":
                 case "move":
-                WFT::getInstance()->getFormManager()->sendFormTo($sender, ListForm::FORM_ID, ListForm::MODE_TPHERE);
+                    WFT::getInstance()->getFormManager()->sendFormTo($sender, ListForm::FORM_ID, ListForm::MODE_TPHERE);
 
-                break;
+                    break;
 
                 case "edit":
                 case "e":
                 case "change":
-                WFT::getInstance()->getFormManager()->sendFormTo($sender, ListForm::FORM_ID, ListForm::MODE_EDIT);
+                    WFT::getInstance()->getFormManager()->sendFormTo($sender, ListForm::FORM_ID, ListForm::MODE_EDIT);
 
-                break;
+                    break;
 
                 case "add":
                 case "create":
@@ -113,9 +113,15 @@ class WFTCommand extends Command implements PluginOwned
                 case "new":
                 case "c":
                 case "a":
-                WFT::getInstance()->getFormManager()->sendFormTo($sender, CreationForm::FORM_ID);
+                    WFT::getInstance()->getFormManager()->sendFormTo($sender, CreationForm::FORM_ID);
 
-                break;
+                    break;
+                case "reload":
+                    $sender->sendMessage("Reloading...");
+                    $start = microtime(true);
+                    WFT::getInstance()->getTextManager()->reload();
+                    $sender->sendMessage("Done! (took " . round((microtime(true) - $start) * 1000, 3) . "ms)");
+                    break;
                 default:
                     $sender->sendMessage($this->getUsage());
                     return;

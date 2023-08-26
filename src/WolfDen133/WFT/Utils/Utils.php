@@ -4,6 +4,7 @@ namespace WolfDen133\WFT\Utils;
 
 use pocketmine\network\mcpe\protocol\AvailableCommandsPacket;
 use pocketmine\network\mcpe\protocol\types\command\CommandEnum;
+use pocketmine\network\mcpe\protocol\types\command\CommandOverload;
 use pocketmine\network\mcpe\protocol\types\command\CommandParameter;
 use pocketmine\player\Player;
 use pocketmine\utils\Config;
@@ -114,43 +115,47 @@ class Utils
         return preg_replace('/_+/', "_", $id);
     }
 
+    // BLAME COMMANDO (cannot yet use dynamic enum lists, or use implode() for arguments :))
     public static function setCommandPacketData (AvailableCommandsPacket $packet) : void
     {
         if (!isset($packet->commandData['wft'])) return;
 
         $args = [
-            [
+            new CommandOverload(false, [
                 CommandParameter::enum('create', new CommandEnum('create', ['create']), CommandParameter::FLAG_FORCE_COLLAPSE_ENUM),
                 CommandParameter::standard('uniqueName', AvailableCommandsPacket::ARG_TYPE_STRING, 0, true),
-                CommandParameter::standard('text', AvailableCommandsPacket::ARG_TYPE_RAWTEXT, 0, true)
-            ],
-            [
-                CommandParameter::enum('remove', new CommandEnum('remove', ['remove']), CommandParameter::FLAG_FORCE_COLLAPSE_ENUM),
-                CommandParameter::enum('uniqueName', new CommandEnum('uniqueName', array_keys(WFT::getInstance()->getTextManager()->texts)), 0, true)
-            ],
-            [
+                CommandParameter::standard('text', AvailableCommandsPacket::ARG_TYPE_RAWTEXT, 0, true)]
+            ),
+            new CommandOverload(false, [
+                    CommandParameter::enum('remove', new CommandEnum('remove', ['remove']), CommandParameter::FLAG_FORCE_COLLAPSE_ENUM),
+                    CommandParameter::enum('uniqueName', new CommandEnum('uniqueName', array_keys(WFT::getInstance()->getTextManager()->texts)), 0, true)]
+            ),
+            new CommandOverload(false, [
                 CommandParameter::enum('edit', new CommandEnum('edit', ['edit']), CommandParameter::FLAG_FORCE_COLLAPSE_ENUM),
                 CommandParameter::enum('uniqueName', new CommandEnum('uniqueName', array_keys(WFT::getInstance()->getTextManager()->texts)), 0, true),
                 CommandParameter::standard('text', AvailableCommandsPacket::ARG_TYPE_RAWTEXT, 0, true)
 
-            ],
-            [
+            ]),
+            new CommandOverload(false, [
                 CommandParameter::enum('tp', new CommandEnum('tp', ['tp']), CommandParameter::FLAG_FORCE_COLLAPSE_ENUM),
                 CommandParameter::enum('uniqueName', new CommandEnum('uniqueName', array_keys(WFT::getInstance()->getTextManager()->texts)), 0, true)
-            ],
-            [
+            ]),
+            new CommandOverload(false, [
                 CommandParameter::enum('tphere', new CommandEnum('tphere', ['tphere']), CommandParameter::FLAG_FORCE_COLLAPSE_ENUM),
                 CommandParameter::enum('uniqueName', new CommandEnum('uniqueName', array_keys(WFT::getInstance()->getTextManager()->texts)), 0, true),
-            ],
-            [
-                CommandParameter::enum('list', new CommandEnum('list', ['list']), CommandParameter::FLAG_FORCE_COLLAPSE_ENUM),
-            ],
-            [
-                CommandParameter::enum('help', new CommandEnum('help', ['help']), CommandParameter::FLAG_FORCE_COLLAPSE_ENUM),
-            ]
+            ]),
+            new CommandOverload(false, [
+                CommandParameter::enum('list', new CommandEnum('list', ['list']), CommandParameter::FLAG_FORCE_COLLAPSE_ENUM)]
+            ),
+            new CommandOverload(false, [
+                CommandParameter::enum('help', new CommandEnum('help', ['help']), CommandParameter::FLAG_FORCE_COLLAPSE_ENUM)]
+            ),
+            new CommandOverload(false, [
+                    CommandParameter::enum('reload', new CommandEnum('reload', ['reload']), CommandParameter::FLAG_FORCE_COLLAPSE_ENUM)]
+            )
         ];
 
-        $packet->commandData['wft']->overloads = $args;
+        $packet->commandData["wft"]->overloads = $args;
 
         self::$packet = $packet;
     }

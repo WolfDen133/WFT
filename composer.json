@@ -1,0 +1,51 @@
+{
+  "name": "wolfden133/wft",
+  "description": "Add Custom Floating Texts to your PocketMine-MP server.",
+  "type": "pocketmine-plugin",
+  "authors": [
+    {
+      "name": "WolfDen133",
+      "email": "razgyates2006@gmail.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "license": "GPL-3.0-or-later",
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "dktapps-pm-pl/pmforms",
+        "version": "dev-master",
+        "source": {
+          "type": "git",
+          "url": "https://github.com/dktapps-pm-pl/pmforms",
+          "reference": "master"
+        },
+        "autoload": {
+          "psr-4": {
+            "dktapps\\pmforms\\": ["src/dktapps/pmforms"]
+          }
+        }
+      }
+    }
+  ],
+  "require": {
+    "dktapps-pm-pl/pmforms": "dev-master"
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^1.10",
+    "pocketmine/pocketmine-mp": "^5.3",
+    "sof3/pharynx": "^0.3.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "WolfDen133\\WFT\\": ["src"]
+    }
+  },
+  "scripts": {
+    "build": "php -dphar.readonly=0 vendor/bin/pharynx -i=. -c -p=WFT.phar"
+  },
+  "config": {
+    "sort-packages": true
+  }
+}

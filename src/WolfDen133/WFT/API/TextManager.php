@@ -2,10 +2,10 @@
 
 namespace WolfDen133\WFT\API;
 
-use pocketmine\world\Position;
-use pocketmine\world\World;
 use pocketmine\player\Player;
 use pocketmine\utils\Config;
+use pocketmine\world\Position;
+use pocketmine\world\World;
 use WolfDen133\WFT\Texts\FloatingText;
 use WolfDen133\WFT\Utils\Utils;
 use WolfDen133\WFT\WFT;
@@ -14,6 +14,9 @@ class TextManager {
 
     /** @var FloatingText[] */
     public array $texts = [];
+
+    /** @var array  */
+    public array $ftLocations = [];
 
     private TextActions $actions;
 
@@ -25,7 +28,6 @@ class TextManager {
         if (!is_dir(self::$textDir)) mkdir(self::$textDir);
 
         $this->actions = new TextActions($this);
-        $this->loadFloatingTexts();
     }
 
     /**
@@ -136,6 +138,16 @@ class TextManager {
         unset($this->texts[$id]);
 
         Utils::sendCommandDataPacket();
+    }
+
+    public function reload ()
+    {
+        foreach ($this->getTexts() as $text) $this->getActions()->closeToAll($text->getName());
+
+        $this->texts = [];
+        $this->loadFloatingTexts();
+
+        foreach (WFT::getInstance()->getServer()->getOnlinePlayers() as $player) $this->spawnHandle($player);
     }
 
 
