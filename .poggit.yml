@@ -5,6 +5,9 @@ branches:
 projects:
   WFT:
     path: ""
+    libs:
+      - src: dktapps-pm-pl/pmforms/pmforms
+      version: ^2.1.0
     icon: "logo.png"
     lint:
       phpstan: false
