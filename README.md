@@ -90,6 +90,7 @@ Master command is ft|wft.master
 | `tphere`   | ~                 | Teleport a ft to you             | `teleporthere`, `movehere`, `bringhere`, `tph`, `move` |
 | `list`     | ~                 | See a list of the current fts    | `see`, `all`                                           |
 | `help`     | ~                 | So you can get some in-game help | `stuck`, `h`, `?`                                      |
+| `reload`   | ~                 | Re-read and reload all texts     | -                                                      |
 
 ## Tags
 
