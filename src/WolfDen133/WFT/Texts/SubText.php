@@ -40,16 +40,13 @@ class SubText
 {
     private string $text;
     private Position $position;
-
-    private string $uuid;
     private int $runtime;
 
-    public function __construct(string $text, Position $position, string $uuid, int $runtimeID)
+    public function __construct(string $text, Position $position, int $runtimeID)
     {
         $this->text = $text;
         $this->position = $position;
         $this->runtime = $runtimeID;
-        $this->uuid = $uuid;
     }
 
     public function setText (string $text) : void

@@ -1,5 +1,5 @@
-# WFT - 1.5.1
-### Hello, and welcome to **WFT**. 
+# WFloatingText - 1.5.2
+### Hello, and welcome to **WFloatingText**.
 
 ![](logo.png)
 
@@ -18,6 +18,8 @@ I have added features, because I felt the plugin needed them, and removed featur
 - Per-Player Texts
 - Packet Texts over Entity
 - More efficient and pretty code
+- Operator texts [More info here](.github/operator-texts.md)
+- Operator change detection
 
 Migration: This should have been added on 1.0, but texts from WFT-OLD will now be automaticly migrated to WFT format.
 
@@ -33,7 +35,18 @@ Packets: The old plugin used entities, putting more load on the server, whereas 
 
 Efficient and pretty code: The code in this plugin is WAY more efficient and clean that the old plugin. The code is also spaced out in multiple files.
 
+Operator texts: Have the option only displaying text to operators, this could be useful for a general server overview in your spawn world without it affecting your general players! [Again, more info here](.github/operator-texts.md)
+
+Operator change detection: WFloatingText will now automatically detect when your operator status changes, so no more annoying re-logging
+
 ## Bug Fixes
+
+### List form would crash the server
+**Status**: Fixed
+
+**Version**: >=1.5.1
+
+**Fixed in**: <=1.5.2
 
 ### https://github.com/WolfDen133/WFT/issues/21
 **Status**: Fixed

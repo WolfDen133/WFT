@@ -6,10 +6,16 @@ use pocketmine\event\entity\EntityTeleportEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerQuitEvent;
+use pocketmine\event\server\CommandEvent;
 use pocketmine\event\server\DataPacketSendEvent;
 use pocketmine\event\world\WorldLoadEvent;
 use pocketmine\network\mcpe\protocol\AvailableCommandsPacket;
+use pocketmine\network\mcpe\protocol\types\PlayerPermissions;
+use pocketmine\permission\DefaultPermissionNames;
+use pocketmine\permission\DefaultPermissions;
 use pocketmine\player\Player;
+use pocketmine\scheduler\ClosureTask;
+use pocketmine\Server;
 use WolfDen133\WFT\Utils\Utils;
 
 class EventListener implements Listener
@@ -48,5 +54,22 @@ class EventListener implements Listener
     public function onWorldLoadEvent (WorldLoadEvent $event) : void
     {
         WFT::getInstance()->getTextManager()->loadFloatingTexts();
+    }
+
+    public function onCommandEvent (CommandEvent $event) : void
+    {
+        $command = str_replace("/", "", strtolower($event->getCommand()));
+        $split = explode(" ", $command);
+
+        if (!in_array($split[0], ["op", "deop"])) return;
+        if (!$event->getSender()->hasPermission(DefaultPermissions::ROOT_OPERATOR)) return;
+
+        array_shift($split);
+        $name = implode(" ", $split);
+
+        if (($player = WFT::getInstance()->getServer()->getPlayerByPrefix($name)) != null)
+            WFT::getInstance()->getScheduler()->scheduleDelayedTask(new ClosureTask(function () use ($player) {
+                Utils::handleOperatorChange($player);
+            }), 5);
     }
 }

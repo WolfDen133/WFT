@@ -46,6 +46,11 @@ class Utils
         ];
     }
 
+    public static function handleOperatorChange (Player $for)
+    {
+        foreach (WFT::getInstance()->getTextManager()->getTexts() as $text) WFT::getInstance()->getTextManager()->getActions()->respawnTo($for, $text->getName());
+    }
+
     public static function getFormattedText(string $rawtext, Player $player): string
     {
         $wildcards = self::getWildCards($player);

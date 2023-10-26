@@ -8,6 +8,7 @@ use dktapps\pmforms\element\Input;
 use dktapps\pmforms\element\Label;
 use pocketmine\player\Player;
 use WolfDen133\WFT\Form\Form;
+use dktapps\pmforms\element\Toggle;
 use WolfDen133\WFT\Texts\FloatingText;
 use WolfDen133\WFT\WFT;
 
@@ -23,7 +24,8 @@ class EditForm extends Form
         $form = new CustomForm(
             WFT::getInstance()->getLanguageManager()->getLanguage()->getFormText("edit.title"), [
             new Label("content", WFT::getInstance()->getLanguageManager()->getLanguage()->getFormText("edit.content", ["{NAME}" => $floatingText->getName()])),
-            new Input("text", WFT::getInstance()->getLanguageManager()->getLanguage()->getFormText("edit.text-title"), WFT::getInstance()->getLanguageManager()->getLanguage()->getFormText("edit.text-placeholder"), $floatingText->getText())
+            new Input("text", WFT::getInstance()->getLanguageManager()->getLanguage()->getFormText("edit.text-title"), WFT::getInstance()->getLanguageManager()->getLanguage()->getFormText("edit.text-placeholder"), $floatingText->getText()),
+                new Toggle("isOp", "isOP", $floatingText->isOperator)
         ],
             function (Player $player, CustomFormResponse $data = null) : void { if (is_null($data)) { return; } $this->handleResponse($player, $data); }
         );
@@ -35,6 +37,7 @@ class EditForm extends Form
     public function handleResponse(Player $player, CustomFormResponse|int $data): void
     {
         $this->floatingText->setText($data->getString("text"));
+        $this->floatingText->isOperator = $data->getBool("isOp");
         WFT::getInstance()->getTextManager()->saveText($this->floatingText);
         WFT::getInstance()->getTextManager()->getActions()->respawnToAll($this->floatingText->getName());
         $player->sendMessage(WFT::getInstance()->getLanguageManager()->getLanguage()->getMessage("update", ["{NAME}" => $this->floatingText->getName()]));

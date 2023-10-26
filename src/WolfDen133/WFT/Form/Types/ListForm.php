@@ -30,7 +30,7 @@ class ListForm extends Form
 
     public function sendTo(Player $player, FloatingText $floatingText = null): void
     {
-        foreach (WFT::getInstance()->getTextManager()->getTexts() as $text) {
+        foreach (WFT::getInstance()->getTextManager()->getIndexedList() as $text) {
             $buttons[] = new MenuOption(TextFormat::DARK_GRAY . $text->getName() . "\n" . TextFormat::GRAY . $text->getText());
         }
 
@@ -41,7 +41,7 @@ class ListForm extends Form
 
     public function handleResponse(Player $player, CustomFormResponse|int $data): void
     {
-        $text = WFT::getInstance()->getTextManager()->getTexts()[$data];
+        $text = WFT::getInstance()->getTextManager()->getIndexedList()[$data];
 
         switch ($this->mode) {
             case self::MODE_EDIT:

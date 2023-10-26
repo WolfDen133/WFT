@@ -6,6 +6,7 @@ use dktapps\pmforms\CustomForm;
 use dktapps\pmforms\CustomFormResponse;
 use dktapps\pmforms\element\Input;
 use dktapps\pmforms\element\Label;
+use dktapps\pmforms\element\Toggle;
 use pocketmine\player\Player;
 use pocketmine\world\Position;
 use WolfDen133\WFT\Form\Form;
@@ -28,7 +29,8 @@ class CreationForm extends Form
             [
                 new Label("content", WFT::getInstance()->getLanguageManager()->getLanguage()->getFormText("create.content")),
                 new Input("uniqueName", WFT::getInstance()->getLanguageManager()->getLanguage()->getFormText("create.name-title"), WFT::getInstance()->getLanguageManager()->getLanguage()->getFormText("create.name-placeholder")),
-                new Input("text", WFT::getInstance()->getLanguageManager()->getLanguage()->getFormText("create.text-title"), WFT::getInstance()->getLanguageManager()->getLanguage()->getFormText("create.text-placeholder"))
+                new Input("text", WFT::getInstance()->getLanguageManager()->getLanguage()->getFormText("create.text-title"), WFT::getInstance()->getLanguageManager()->getLanguage()->getFormText("create.text-placeholder")),
+                new Toggle("isOp", "isOP")
             ], function (Player $player, CustomFormResponse $data) : void { if (is_null($data)) { return; } $this->handleResponse($player, $data); }
         );
 
@@ -44,8 +46,7 @@ class CreationForm extends Form
             $player->sendMessage(WFT::getInstance()->getLanguageManager()->getLanguage()->getMessage("exists", ["{NAME}" => $data->getString("uniqueName")]));
             return;
         }
-
-        $floatingText = $api->registerText($data->getString("uniqueName"), $data->getString("text"), new Position($player->getPosition()->getX(), $player->getPosition()->getY() + 1.8, $player->getPosition()->getZ(), $player->getWorld()));
+        $floatingText = $api->registerText($data->getString("uniqueName"), $data->getString("text"), new Position($player->getPosition()->getX(), $player->getPosition()->getY() + 1.8, $player->getPosition()->getZ(), $player->getWorld()), true, true, $data->getBool("isOp"));
 
         $player->sendMessage(WFT::getInstance()->getLanguageManager()->getLanguage()->getMessage("add", ["{NAME}" => $floatingText->getName()]));
     }

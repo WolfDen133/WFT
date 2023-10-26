@@ -195,7 +195,14 @@ class WFTCommand extends Command implements PluginOwned
                         return;
                     }
 
-                    $floatingText = $api->registerText($args[1], implode(" ", array_splice($args, 2)), new Position($sender->getPosition()->getX(), $sender->getPosition()->getY() + 1.8, $sender->getPosition()->getZ(), $sender->getWorld()));
+                    $operator = false;
+
+                    if (strtolower($args[count($args) - 1]) == "-op") {
+                        unset($args[count($args) - 1]);
+                        $operator = true;
+                    }
+
+                    $floatingText = $api->registerText($args[1], implode(" ", array_splice($args, 2)), new Position($sender->getPosition()->getX(), $sender->getPosition()->getY() + 1.8, $sender->getPosition()->getZ(), $sender->getWorld()), true, true, $operator);
 
                     $sender->sendMessage(WFT::getInstance()->getLanguageManager()->getLanguage()->getMessage("add", ["{NAME}" => $floatingText->getName()]));
                     break;
@@ -207,6 +214,12 @@ class WFTCommand extends Command implements PluginOwned
                         $sender->sendMessage(WFT::getInstance()->getLanguageManager()->getLanguage()->getMessage("not-found", ["{NAME}" => $args[1]]));
                         return;
                     }
+
+                    if (in_array(strtolower($args[count($args) - 1]), ["-op", "-deop"])) {
+                        $text->isOperator = match ($args[count($args) - 1]) { "-op" => true, "-deop" => false };
+                        unset($args[count($args) - 1]);
+                    }
+
 
                     $text->setText(implode(" ", array_splice($args, 2)));
                     $api->saveText($text);

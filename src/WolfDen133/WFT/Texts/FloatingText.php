@@ -6,25 +6,24 @@ use pocketmine\permission\DefaultPermissions;
 use pocketmine\player\Player;
 use pocketmine\utils\TextFormat;
 use pocketmine\world\Position;
-use Ramsey\Uuid\Uuid as UUID;
 use WolfDen133\WFT\WFT;
 
 class FloatingText
 {
     private Position $position;
-
     private string $text;
     private string $name;
-
     /** @var SubText[] */
     public array $subtexts = [];
     public SubText $identifier;
+    public bool $isOperator;
 
-    public function __construct(string $identifier, string $text, Position $position)
+    public function __construct(string $identifier, string $text, Position $position, $isOperator = false)
     {
         $this->name = $identifier;
         $this->text = $text;
         $this->position = $position;
+        $this->isOperator = $isOperator;
 
         $this->registerSubTexts();
     }
@@ -42,13 +41,13 @@ class FloatingText
         $this->subtexts = [];
 
         foreach ($lines as $line) {
-            $subText = new SubText($line, new Position($this->getPosition()->getX(), $y, $this->getPosition()->getZ(), $this->getPosition()->getWorld()), UUID::uuid4(), Entity::nextRuntimeId());
+            $subText = new SubText($line, new Position($this->getPosition()->getX(), $y, $this->getPosition()->getZ(), $this->getPosition()->getWorld()), Entity::nextRuntimeId());
 
             $this->subtexts[] = $subText;
             $y = $y - 0.3;
         }
 
-        $this->identifier = new SubText(TextFormat::DARK_GRAY . "[" . $this->getName() . "]", new Position($this->position->getX(), $y, $this->position->getZ(), $this->position->getWorld()), UUID::uuid4(), Entity::nextRuntimeId());
+        $this->identifier = new SubText(TextFormat::DARK_GRAY . "[" . $this->getName() . "]", new Position($this->position->getX(), $y, $this->position->getZ(), $this->position->getWorld()), Entity::nextRuntimeId());
     }
 
     /**
@@ -102,7 +101,10 @@ class FloatingText
     public function spawnTo (Player $player) : void
     {
         foreach ($this->subtexts as $subText) {
-            $subText->spawnTo($player);
+            if ($this->isOperator) {
+                if ($player->hasPermission(DefaultPermissions::ROOT_OPERATOR)) $subText->spawnTo($player);
+
+            } else $subText->spawnTo($player);
         }
 
         if (WFT::$display_identifier) {
@@ -122,13 +124,7 @@ class FloatingText
     public function respawnTo (Player $player) : void
     {
         $this->closeTo($player);
-
         $this->registerSubTexts();
-
-        if (WFT::$display_identifier) {
-            if ($player->hasPermission(DefaultPermissions::ROOT_OPERATOR)) $this->identifier->spawnTo($player);
-        }
-
         $this->spawnTo($player);
     }
 

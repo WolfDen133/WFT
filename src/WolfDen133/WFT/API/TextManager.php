@@ -6,21 +6,19 @@ use pocketmine\player\Player;
 use pocketmine\utils\Config;
 use pocketmine\world\Position;
 use pocketmine\world\World;
+use WolfDen133\WFT\Exception\WFTException;
 use WolfDen133\WFT\Texts\FloatingText;
 use WolfDen133\WFT\Utils\Utils;
 use WolfDen133\WFT\WFT;
+use JsonException;
 
 class TextManager {
 
+    public static string $textDir;
     /** @var FloatingText[] */
     public array $texts = [];
-
-    /** @var array  */
-    public array $ftLocations = [];
-
     private TextActions $actions;
 
-    public static string $textDir;
 
     public function __construct()
     {
@@ -31,7 +29,7 @@ class TextManager {
     }
 
     /**
-     * Load all saved texts
+     * Load all saved texts from disk
      *
      * @return void
      */
@@ -55,8 +53,8 @@ class TextManager {
                 WFT::getInstance()->getServer()->getWorldManager()->getWorldByName((string)$config->get("world"))
             );
 
-            $this->registerText(Utils::steriliseIdentifier($config->get("name")), implode("#", $config->get("lines")), $position);
 
+            $this->registerText(Utils::steriliseIdentifier($config->get("name")), implode("#", $config->get("lines")), $position, true, true, (bool)$config->get("isOp"));
         }
     }
 
@@ -64,8 +62,8 @@ class TextManager {
      * Simple function to load and check if a level is loaded
      * We do this because you cannot include an unloaded world in a spawn packet.
      *
-     * @param string $levelName
-     * @return bool
+     * @param string $levelName     The level to be checked
+     * @return bool                 If the level is or has been loaded
      */
     public function levelCheck (string $levelName) : bool
     {
@@ -87,13 +85,14 @@ class TextManager {
      * @param Position $position    Where the floating text actually exists on the server
      * @param bool $spawnToAll      (optional) Whether the text is spawned to the server when it is created
      * @param bool $saveText        (optional) Whether there is a config saved to plugin_data (If you are using the api externally, disable this as it is usually only for in-game creation)
+     * @param bool $isOp
      * @return FloatingText
      */
-    public function registerText (string $identifier, string $text, Position $position, bool $spawnToAll = true, bool $saveText = true) : FloatingText
+    public function registerText (string $identifier, string $text, Position $position, bool $spawnToAll = true, bool $saveText = true, bool $isOp = false) : FloatingText
     {
         $id = Utils::steriliseIdentifier($identifier);
 
-        $floatingText = new FloatingText($id, $text, $position);
+        $floatingText = new FloatingText($id, $text, $position, $isOp);
         $this->texts[$id] = $floatingText;
 
         if ($saveText) $this->saveText($floatingText);
@@ -104,7 +103,10 @@ class TextManager {
         return $floatingText;
     }
 
-
+    /**
+     * @param FloatingText $floatingText The floating text you wish to save
+     * @return void
+     */
     public function saveText (FloatingText $floatingText) : void
     {
         $config = new Config(self::$textDir . $floatingText->getName() . ".json", Config::JSON);
@@ -116,9 +118,16 @@ class TextManager {
             "x" => $floatingText->getPosition()->getX(),
             "y" => $floatingText->getPosition()->getY(),
             "z" => $floatingText->getPosition()->getZ(),
+            "isOp" => $floatingText->isOperator
         ]);
 
-        $config->save();
+        try {
+            $config->save();
+        } catch (JsonException)
+        {
+            WFT::getInstance()->getLogger()->error("Error saving " . $floatingText->getName() . " to disk, try closing any applications that are holding the file and restart the server.");
+        }
+
     }
 
 
@@ -140,7 +149,12 @@ class TextManager {
         Utils::sendCommandDataPacket();
     }
 
-    public function reload ()
+
+    /**
+     * Reloads all configs from disk and respawns them to the online players (used so you don't have to restart every time you change a text config)
+     * @throws WFTException
+     */
+    public function reload () : void
     {
         foreach ($this->getTexts() as $text) $this->getActions()->closeToAll($text->getName());
 
@@ -157,6 +171,7 @@ class TextManager {
      * @param Player $player
      * @param World|null $destination
      * @return void
+     * @throws WFTException
      */
     public function spawnHandle (Player $player, World $destination = null) : void
     {
@@ -171,7 +186,10 @@ class TextManager {
         }
     }
 
+
     /**
+     * Get a text by its identifier
+     *
      * @param string $id
      * @return FloatingText|null
      */
@@ -180,15 +198,34 @@ class TextManager {
         return $this->texts[Utils::steriliseIdentifier($id)] ?? null;
     }
 
+
     /**
-     * @return FloatingText[]
+     * Get all the floating texts with their identifier as the index
+     *
+     * @return array<string, FloatingText[]>
      */
     public function getTexts(): array
     {
         return $this->texts;
     }
 
+
     /**
+     * Get all the floating texts with an integer indexed list
+     *
+     * @return array<int, FloatingText[]>
+     */
+    public function getIndexedList() : array
+    {
+        $texts = [];
+        foreach ($this->texts as $text) $texts[] = $text;
+        return $texts;
+    }
+
+
+    /**
+     * Get the actions class for controlling display status
+     *
      * @return TextActions
      */
     public function getActions(): TextActions

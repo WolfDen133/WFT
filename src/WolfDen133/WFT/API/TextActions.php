@@ -20,6 +20,7 @@ class TextActions
      * Spawn a text to the whole server
      *
      * @param string $id
+     * @throws WFTException
      */
     public function spawnToAll (string $id) : void
     {
@@ -31,6 +32,7 @@ class TextActions
      * Close a text to the whole server
      *
      * @param string $id
+     * @throws WFTException
      */
     public function closeToAll (string $id) : void
     {
@@ -41,6 +43,7 @@ class TextActions
      * Respawn a text to the whole server
      *
      * @param string $id
+     * @throws WFTException
      */
     public function respawnToAll (string $id) : void
     {
