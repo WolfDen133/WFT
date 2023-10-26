@@ -5,7 +5,9 @@ description: Add Custom Floating Texts to your PocketMine-MP server
 
 main: WolfDen133\WFT\WFT
 
-version: 1.5.1
+load: POSTWORLD
+
+version: 1.5.2
 api: 5.4.3
 
 permissions:

@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace WolfDen133\WFT;
 
-use CortexPE\Commando\PacketHooker;
-use pocketmine\permission\Permission;
-use pocketmine\permission\PermissionManager;
 use pocketmine\plugin\PluginBase;
 use WolfDen133\WFT\API\TextManager;
 use WolfDen133\WFT\Command\WFTCommand;
@@ -20,10 +17,8 @@ use WolfDen133\WFT\Utils\Utils;
 class WFT extends PluginBase
 {
     private const CONFIG_VERSION = 1;
-
     public static bool $display_identifier = false;
     private static self $instance;
-
     private TextManager $textManager;
     private LanguageManager $languageManager;
     private FormManager $formManager;
@@ -39,8 +34,6 @@ class WFT extends PluginBase
         self::$display_identifier = $this->getConfig()->get("display-identifier");
 
         Utils::updateOldTexts();
-
-
 
         $this->textManager = new TextManager();
         $this->languageManager = new LanguageManager($this);
