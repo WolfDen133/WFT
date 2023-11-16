@@ -4,7 +4,6 @@ You can now create operator texts that only display to the operators of the serv
 
 Here is a tutorial showing the new functionality 
 
-
 [![CLICK ME](https://i.imgur.com/LfsZMFb.png)](https://youtu.be/VlIoYeWfHyI)
 
 And here are some images of the new toggle added to the forms
