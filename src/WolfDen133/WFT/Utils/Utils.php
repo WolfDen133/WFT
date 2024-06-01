@@ -9,24 +9,26 @@ use pocketmine\network\mcpe\protocol\types\command\CommandParameter;
 use pocketmine\player\Player;
 use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat;
+use WolfDen133\WFT\API\TextManager;
 use WolfDen133\WFT\Event\TagReplaceEvent;
 use WolfDen133\WFT\WFT;
 
 class Utils
 {
 
-    private static AvailableCommandsPacket $packet;
+    private static ?AvailableCommandsPacket $packet = null;
+
+    private static array $fileBlackList = [".", ".."];
 
     public static function getWildCards(Player $player): array
     {
         $self = WFT::getInstance();
 
         return [
-            "#" => "\n",
             "{NAME}" => $player->getName(),
             "{REAL_NAME}" => $player->getName(),
             "{DISPLAY_NAME}" => $player->getDisplayName(),
-            "{PING}" => $player->getNetworkSession()->getPing(),
+            "{PING}" => $player->getNetworkSession()->getPing() ?? "999+",
             "{ONLINE_PLAYERS}" => count($self->getServer()->getOnlinePlayers()),
             "{MAX_PLAYERS}" => $self->getServer()->getMaxPlayers(),
             "{X}" => (int)$player->getPosition()->getX(),
@@ -53,15 +55,16 @@ class Utils
 
     public static function getFormattedText(string $rawtext, Player $player): string
     {
-        $wildcards = self::getWildCards($player);
         $text = TextFormat::colorize($rawtext);
-
-        foreach ($wildcards as $find => $replace) $text = str_replace($find, $replace, $text);
 
         $ev = new TagReplaceEvent($text, $player);
         $ev->call();
 
-        return $ev->getText();
+        $wildcards = self::getWildCards($player);
+        $replacedText = $ev->getText();
+        foreach ($wildcards as $find => $replace) $replacedText = str_replace($find, $replace, $replacedText);
+
+        return $replacedText;
     }
 
     public static function updateOldTexts(): void
@@ -71,13 +74,13 @@ class Utils
         if (!is_dir($path)) return;
 
         $dir = new \RecursiveDirectoryIterator($path);
-        foreach ($dir as $fileInfo) {
-            if ($fileInfo->getFilename() == "." or $fileInfo->getFilename() == "..") continue;
+        foreach (scandir($dir) as $filename) {
+            if (in_array($filename, self::$fileBlackList)) continue;
 
-            $config = new Config($path . $fileInfo->getFilename(), Config::YAML);
+            $config = new Config($path . $filename, Config::YAML);
 
             if (!$config->exists('visible')) {
-                unlink($path . $fileInfo->getFilename());
+                unlink($path . $filename);
                 continue;
             }
 
@@ -89,9 +92,10 @@ class Utils
             $data['z'] = (float)$config->get("z");
             $data['world'] = (string)$config->get("level");
             $data['lines'] = (array)$config->get("lines");
+            $data['ver'] = TextManager::ConfigVersion;
 
+            unlink($path . $filename);
             self::regenerateConfig($data);
-            unlink($path . $fileInfo->getFilename());
 
             WFT::getInstance()->getServer()->getLogger()->info('[WFT] >> Migration: Successfully migrated ' . $data['name'] . " floating text from WFT-OLD format.");
         }
@@ -103,6 +107,7 @@ class Utils
     {
         $config = new Config(WFT::getInstance()->getDataFolder() . "texts/" . $data['name'] . ".json", Config::JSON);
 
+        $config->set("ver", $data['ver']);
         $config->set("name", $data['name']);
         $config->set("lines", $data['lines']);
         $config->set("world", $data['world']);
@@ -167,6 +172,7 @@ class Utils
 
     public static function sendCommandDataPacket () : void
     {
+        if (self::$packet == null) return;
         foreach (WFT::getInstance()->getServer()->getOnlinePlayers() as $player) $player->getNetworkSession()->sendDataPacket(self::$packet);
     }
 }

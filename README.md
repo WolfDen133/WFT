@@ -1,7 +1,9 @@
-# WFloatingText - 1.5.2
+# WFloatingText - 1.5.3
 ### Hello, and welcome to **WFloatingText**.
 
 ![](logo.png)
+
+> ### Please note that 1.5.2 to 1.5.3 you will now need to use `\#` instead of `#`
 
 ### NOW IN API 5.0
 
@@ -20,6 +22,7 @@ I have added features, because I felt the plugin needed them, and removed featur
 - More efficient and pretty code
 - Operator texts [More info here](.github/operator-texts.md)
 - Operator change detection
+- Multi newline support
 
 Migration: This should have been added on 1.0, but texts from WFT-OLD will now be automaticly migrated to WFT format.
 
@@ -39,6 +42,7 @@ Operator texts: Have the option only displaying text to operators, this could be
 
 Operator change detection: WFloatingText will now automatically detect when your operator status changes, so no more annoying re-logging
 
+Multi-newline support: You can use either `\n` for a new line for always player facing texts, or use `\#` to keep the shape of your text, or have the best of both worlds
 ## Bug Fixes
 
 ### List form would crash the server
@@ -87,7 +91,8 @@ Operator change detection: WFloatingText will now automatically detect when your
 - Extensive customizable
 
 ## Example
-![Info](https://i.imgur.com/7UZQGWR.png)
+
+![Example](https://i.imgur.com/2oKCNwO.png)
 
 ## Commands
 
@@ -109,7 +114,8 @@ Master command is ft|wft.master
 
 | Tag                | Description                                                |
 |--------------------|------------------------------------------------------------|
-| `#`                | New line                                                   |
+| `\#`               | New Section                                                |
+| `\n`               | New line                                                   |
 | `&`                | Use for color codes (same as `§`)                          |
 | `{NAME}`           | Players real name                                          |
 | `{REAL_NAME}`      | Players real name                                          |

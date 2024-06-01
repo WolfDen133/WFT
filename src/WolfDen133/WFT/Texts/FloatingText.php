@@ -30,7 +30,7 @@ class FloatingText
 
     public function registerSubTexts () : void
     {
-        $lines = explode("#", $this->text);
+        $lines = explode("\#", $this->text);
         $y = $this->getPosition()->getY();
 
         foreach (WFT::getInstance()->getServer()->getOnlinePlayers() as $player) {
@@ -40,7 +40,11 @@ class FloatingText
 
         $this->subtexts = [];
 
-        foreach ($lines as $line) {
+        foreach ($lines as $index => $line) {
+
+            if (str_contains($line, "\n")) $y = $y - 0.12 * substr_count($line, "\n");
+            if (isset($lines[$index - 1]) && str_contains($lines[$index - 1], "\n")) $y = $y - 0.14 * substr_count($lines[$index - 1], "\n");
+
             $subText = new SubText($line, new Position($this->getPosition()->getX(), $y, $this->getPosition()->getZ(), $this->getPosition()->getWorld()), Entity::nextRuntimeId());
 
             $this->subtexts[] = $subText;

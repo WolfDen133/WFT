@@ -14,11 +14,12 @@ use JsonException;
 
 class TextManager {
 
+    public const ConfigVersion = 1;
+
     public static string $textDir;
     /** @var FloatingText[] */
     public array $texts = [];
     private TextActions $actions;
-
 
     public function __construct()
     {
@@ -54,7 +55,7 @@ class TextManager {
             );
 
 
-            $this->registerText(Utils::steriliseIdentifier($config->get("name")), implode("#", $config->get("lines")), $position, true, true, (bool)$config->get("isOp"));
+            $this->registerText(Utils::steriliseIdentifier($config->get("name")), implode("\#", $config->get("lines")), $position, true, true, (bool)$config->get("isOp"));
         }
     }
 
@@ -67,6 +68,7 @@ class TextManager {
      */
     public function levelCheck (string $levelName) : bool
     {
+        if (empty($levelName)) return false;
         if (!WFT::getInstance()->getServer()->getWorldManager()->isWorldLoaded($levelName)) {
             WFT::getInstance()->getServer()->getWorldManager()->loadWorld($levelName);
             if (WFT::getInstance()->getServer()->getWorldManager()->isWorldLoaded($levelName)) return true;
@@ -80,19 +82,20 @@ class TextManager {
     /**
      * Create a floating text and register it to the database
      *
-     * @param string $identifier    Unique identifier that will be used to identify the text you wish to manipulate
-     * @param string $text          The actual initial content of the floating text
-     * @param Position $position    Where the floating text actually exists on the server
-     * @param bool $spawnToAll      (optional) Whether the text is spawned to the server when it is created
-     * @param bool $saveText        (optional) Whether there is a config saved to plugin_data (If you are using the api externally, disable this as it is usually only for in-game creation)
+     * @param string $identifier Unique identifier that will be used to identify the text you wish to manipulate
+     * @param string $text The actual initial content of the floating text
+     * @param Position $position Where the floating text actually exists on the server
+     * @param bool $spawnToAll (optional) Whether the text is spawned to the server when it is created
+     * @param bool $saveText (optional) Whether there is a config saved to plugin_data (If you are using the api externally, disable this as it is usually only for in-game creation)
      * @param bool $isOp
      * @return FloatingText
+     * @throws WFTException
      */
     public function registerText (string $identifier, string $text, Position $position, bool $spawnToAll = true, bool $saveText = true, bool $isOp = false) : FloatingText
     {
         $id = Utils::steriliseIdentifier($identifier);
 
-        $floatingText = new FloatingText($id, $text, $position, $isOp);
+        $floatingText = new FloatingText($id, str_replace("\\n", "\n", $text), $position, $isOp);
         $this->texts[$id] = $floatingText;
 
         if ($saveText) $this->saveText($floatingText);
@@ -112,13 +115,14 @@ class TextManager {
         $config = new Config(self::$textDir . $floatingText->getName() . ".json", Config::JSON);
 
         $config->setAll([
+            "ver" => self::ConfigVersion,
             "name" => Utils::steriliseIdentifier($floatingText->getName()),
-            "lines" => explode("#", $floatingText->getText()),
+            "lines" => explode("\#", $floatingText->getText()),
             "world" => $floatingText->getPosition()->getWorld()->getFolderName(),
             "x" => $floatingText->getPosition()->getX(),
             "y" => $floatingText->getPosition()->getY(),
             "z" => $floatingText->getPosition()->getZ(),
-            "isOp" => $floatingText->isOperator
+            "isOp" => $floatingText->isOperator,
         ]);
 
         try {
@@ -134,7 +138,8 @@ class TextManager {
     /**
      * Completely delete a text from the plugin
      *
-     * @param string $identifier    Unique identifier for the text you want to remove
+     * @param string $identifier Unique identifier for the text you want to remove
+     * @throws WFTException
      */
     public function removeText (string $identifier) : void
     {
